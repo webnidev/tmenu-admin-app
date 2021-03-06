@@ -1,12 +1,12 @@
 import React from 'react'
 import { Typography } from "rmwc";
 
-const AccountIndex = () => {
+const TaxRulesIndex = () => {
     return (
         <>
             <div className={"PageContainer"}>
           <div className={"PageTitle"}>        
-            <h1><Typography use="headline1">Minha Conta</Typography></h1>             
+            <h1><Typography use="headline1">Gestão de Taxas</Typography></h1>             
           </div>
           
         </div>
@@ -14,4 +14,4 @@ const AccountIndex = () => {
     )
 }
 
-export default AccountIndex
+export default TaxRulesIndex

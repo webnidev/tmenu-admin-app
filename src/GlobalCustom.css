@@ -3,6 +3,83 @@
   flex-wrap: wrap;
 }
 
+h1, h2, h3, h4, h5, h6, p, span, a {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.mdc-menu-surface--anchor {
+  display: initial;
+}
+
+.rmwc-data-table__cell--align-end {
+  text-align: center;
+}
+
+.rmwc-data-table__cell {
+  text-align: center;
+}
+
+tbody.mdc-data-table__content td {
+  text-align: center;
+}
+
+table .rmwc-badge {
+  text-transform: capitalize;
+  padding: 0 10px;
+  min-width: 100px;
+}
+
+.mdc-data-table__row {
+  border-top-width: 4px;
+  border-top-style: solid;
+  border-color: #efefef;
+}
+
+button.mdc-ripple-upgraded {
+  margin: 0 5px;
+}
+
+.TabelaProdutos th.rmwc-data-table__cell.mdc-data-table__header-cell {
+  font-weight: bold;
+  text-align: center;
+}
+
+.BtnDefaultSearch {
+  height: 51px;
+  background: black !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
+.CustomInputSearch {
+  min-width: 300px;
+  display: inline-grid;
+  background: white !important;
+  margin-right: 10px !important;
+  max-height: 51px;
+  min-height: 51px;
+  margin-top: 1%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #efefef;
+}
+
+body .mdc-drawer .mdc-list-item:not(.mdc-list-item--activated) {
+ color: rgb(255 255 255 / 90%);
+}
+
+.mdc-drawer .mdc-list-item__graphic {
+  color: rgb(255 255 255 / 90%);
+}
+
+.mdc-drawer {
+background: #282833;
+}
+
+
 .PageTitle h1 span {
   font-weight: bold;
   font-size: 1.2em;
@@ -30,6 +107,36 @@
   padding-top: 5%;
 }
 
+input.mdc-text-field__input {
+  background: #2828330a;
+  border-radius: 5px;
+}
+
+.mdc-form-field > label {
+  margin-left: 10px;
+}
+
+.formContainer {
+  margin: 2%;
+  padding: 1% 2% 2% 2%;
+  border-radius: 5px;
+  width: 700px;
+  background: white;
+  max-width: 100%;
+}
+
+label.mdc-ripple-upgraded.mdc-text-field {
+  margin-bottom: 10px !important;
+}
+
+li.mdc-ripple-upgraded.mdc-list-item i {
+  margin-right: 10px;
+}
+
+li.mdc-ripple-upgraded.mdc-list-item strong {
+  margin-left: 5px;
+}
+
 .CardsHomeValue {
   font-size: 64px;
   padding-top: 3%;
@@ -37,10 +144,11 @@
 }
 
 .PageTitle {
-  margin: 0 auto;
-  text-align: center;
-  height: 72.50px;
-  width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    height: 72.50px;
+    width: 100%;
+    margin-left: 2%;
 }
 
 .PageTitle h1 {
@@ -49,11 +157,7 @@
 }
 
 .PageContainer {
-  width: calc(100% - 256px);
-}
-
-h1, h2, h3, h4, h5, h6, p, span, a {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  width: calc(95% - 256px);
 }
 
 .logo {
@@ -79,9 +183,117 @@ h1, h2, h3, h4, h5, h6, p, span, a {
 }
 
 .Divider {
-  border-color: #ffffff40;
+  border-color: #ffffff24;
 }
 
 .mdc-layout-grid {
   padding: 0;
+}
+
+div.CustomContainer.mdc-layout-grid div.mdc-layout-grid__inner {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+:root {
+  --mdc-theme-primary: #000000;
+}
+
+.mdc-data-table {
+  overflow-x: inherit;
+}
+
+.BtnDefaultTmenu {
+  background: #000!important;
+  color: #fff!important;
+  padding: 0px 10px!important;
+  margin-right: 8px;
+  border-radius: 8px;
+  max-height: 51px;
+  min-height: 51px !important;
+  margin-top: 1% !important;
+}
+
+label.mdc-ripple-upgraded.mdc-text-field {
+  margin: 1% 0;
+}
+
+.TmenuSuccess {
+  background: #4CAF50;
+  color: white;
+}
+
+.TmenuSuccessText {
+  color: #4CAF50;
+}
+
+.TmenuDanger {
+  background: #b00020;
+  color: white;
+}
+
+.TmenuDangerText {
+  color: #b00020;
+}
+
+.TmenuInfo {
+  background: #ff9800;
+  color: white;
+}
+
+.TmenuInfoText {
+  color: #ff9800;
+}
+
+.TmenuInProcess {
+  background: #2196f3;
+  color: white;
+}
+
+.TmenuInProcessText {
+  color: #2196f3;
+}
+
+.TmenuPrimary {
+  background: black;
+  color: white;
+}
+
+.TmenuDisabled {
+  background: #bbb;
+  color: #666;
+}
+
+table.mdc-data-table__table a {
+  color: black;
+  font-weight: bold;
+}
+
+div.CustomContainer.mdc-layout-grid div.mdc-layout-grid__inner {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.mdc-layout-grid {
+  padding: 0;
+}
+
+.CustomContainer {
+  margin: 2%;
+}
+
+.BtnSecondaryAction {
+  color:  black !important;
+}
+
+.mdc-dialog__content * {
+  margin-bottom: 3%;
+}
+
+.mdc-dialog__surface {
+  padding: 5% 2%;
+}
+
+.TabelaPadrao th.rmwc-data-table__cell.mdc-data-table__header-cell {
+  font-weight: bold;
 }

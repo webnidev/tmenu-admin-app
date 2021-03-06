@@ -14,17 +14,15 @@ import {
 
 import "rmwc/dist/styles";
 import "./GlobalCustom.css";
-import Home from "./Components/Home";
-import MenuIndex from "./Components/Menu/MenuIndex";
-import AccountIndex from "./Components/Account/AccountIndex";
-import CustomersIndex from "./Components/Customers/CustomersIndex";
-import InvoicesIndex from "./Components/Invoices/InvoicesIndex";
-import OrdersIndex from "./Components/Orders/OrdersIndex";
-import TablesIndex from "./Components/Tables/TablesIndex";
-import UsersIndex from "./Components/Users/UsersIndex";
-import ReportsIndex from "./Components/Reports/ReportsIndex";
-import SettingsIndex from "./Components/Settings/SettingsIndex";
-import PrintersIndex from "./Components/Printers/PrintersIndex";
+import Home from "./components/Home";
+import CompaniesIndex from "./components/Companies/CompaniesIndex";
+import AddCompany from "./components/Companies/AddCompany";
+import ChargesIndex from "./components/Charges/ChargesIndex";
+import BillingIndex from "./components/Billing/BillingIndex";
+import UsersIndex from "./components/Users/UsersIndex";
+import AccountIndex from "./components/Account/AccountIndex";
+import TaxRulesIndex from "./components/TaxRules/TaxRulesIndex";
+import IntegrationsIndex from "./components/Integrations/IntegrationsIndex";
 
 const MainNav = () => {
   return (
@@ -41,37 +39,27 @@ const MainNav = () => {
               <ListItem tag={Link} to="/">
                 <ListItemGraphic icon="dashboard" /> Painel
               </ListItem>
-              <ListItem tag={Link} to="/cardapio">
-                <ListItemGraphic icon="restaurant" /> Cardápio
+              <ListItem tag={Link} to="/companies">
+                <ListItemGraphic icon="business" /> Estabelecimentos                  
               </ListItem>
-              <ListItem tag={Link} to="/pedidos">
-                <ListItemGraphic icon="list" /> Pedidos
+              <ListItem tag={Link} to="/charges">
+                <ListItemGraphic icon="credit_card" /> Cobranças
               </ListItem>
-              <ListItem tag={Link} to="/mesas">
-                <ListItemGraphic icon="view_comfy" /> Mesas
+              <ListItem tag={Link} to="/billing">
+                <ListItemGraphic icon="attach_money" /> Faturamento
               </ListItem>
-              <ListItem tag={Link} to="/clientes">
-                <ListItemGraphic icon="supervisor_account" /> Clientes
-              </ListItem>
-              <ListItem tag={Link} to="/minhas-faturas">
-                <ListItemGraphic icon="attach_money" /> Minhas Faturas
-              </ListItem>
-              <ListItem tag={Link} to="/usuarios">
-                <ListItemGraphic icon="supervised_user_circle" /> Usuários do
-                Sistema
-              </ListItem>
-              <ListItem tag={Link} to="/relatorios">
-                <ListItemGraphic icon="bar_chart" /> Relatórios
-              </ListItem>
+              <ListItem tag={Link} to="/users">
+                <ListItemGraphic icon="supervisor_account" /> Usuários
+              </ListItem>                           
               <hr className={"Divider"} />              
-              <ListItem tag={Link} to="/configuracoes">
-                <ListItemGraphic icon="settings" /> Configurações Gerais
+              <ListItem tag={Link} to="/my-account">
+                <ListItemGraphic icon="settings" /> Minha Conta
               </ListItem>
-              <ListItem tag={Link} to="/impressoras">
-                <ListItemGraphic icon="local_printshop" /> Impressoras
+              <ListItem tag={Link} to="/tax-rules">
+                <ListItemGraphic icon="tune" /> Gestão de Taxas
               </ListItem>
-              <ListItem tag={Link} to="/meus-dados">
-                <ListItemGraphic icon="insert_drive_file" /> Meus Dados
+              <ListItem tag={Link} to="/integrations">
+                <ListItemGraphic icon="sync_alt" /> Integrações
               </ListItem>
               <hr className={"Divider"} />              
               <ListItem tag={Link} to="/logout">
@@ -83,16 +71,14 @@ const MainNav = () => {
 
         <Routes>
           <Route path="/" element={<Home />} end />
-          <Route path="/cardapio" element={<MenuIndex />} />
-          <Route path="/pedidos" element={<OrdersIndex />} />
-          <Route path="/mesas" element={<TablesIndex />} />
-          <Route path="/clientes" element={<CustomersIndex />} />
-          <Route path="/minhas-faturas" element={<InvoicesIndex />} />
-          <Route path="/usuarios" element={<UsersIndex />} />
-          <Route path="/relatorios" element={<ReportsIndex />} />          
-          <Route path="/configuracoes" element={<SettingsIndex />} />
-          <Route path="/impressoras" element={<PrintersIndex />} />
-          <Route path="/meus-dados" element={<AccountIndex />} />
+          <Route path="/companies" element={ <CompaniesIndex/>} />
+          <Route path="/add-company" element={ <AddCompany/>} />
+          <Route path="/charges" element={ <ChargesIndex/>} />
+          <Route path="/billing" element={ <BillingIndex/>} />
+          <Route path="/users" element={ <UsersIndex/>} />
+          <Route path="/my-account" element={ <AccountIndex/>} />
+          <Route path="/tax-rules" element={ <TaxRulesIndex/>} />
+          <Route path="/integrations" element={ <IntegrationsIndex/>} />                    
         </Routes>
       </BrowserRouter>
     </>
