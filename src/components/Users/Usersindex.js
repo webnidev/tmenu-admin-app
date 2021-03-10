@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Typography } from "rmwc";
 
 const UsersIndex = () => {
@@ -14,4 +14,4 @@ const UsersIndex = () => {
     )
 }
 
-export default UsersIndex
+export default UsersIndex;
