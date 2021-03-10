@@ -75,7 +75,7 @@ const MainNav = () => {
           <Route path="/add-company" element={ <AddCompany/>} />
           <Route path="/charges" element={ <ChargesIndex/>} />
           <Route path="/billing" element={ <BillingIndex/>} />
-          <Route path="/users" element={ <UsersIndex/>} />
+          <Route path="/users" element={ <UsersIndex/> } />
           <Route path="/my-account" element={ <AccountIndex/>} />
           <Route path="/tax-rules" element={ <TaxRulesIndex/>} />
           <Route path="/integrations" element={ <IntegrationsIndex/>} />                    
