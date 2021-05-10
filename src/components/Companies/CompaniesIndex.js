@@ -64,7 +64,7 @@ function cadastrarNovo(){
                     </DataTableHead>
                     <DataTableBody>
                       <DataTableRow>
-                        <DataTableCell><a href="">Hamburgueria do Zezim</a></DataTableCell>
+                        <DataTableCell><a href="/">Hamburgueria do Zezim</a></DataTableCell>
                         <DataTableCell alignEnd>00.000.000/0001-01</DataTableCell>
                         <DataTableCell alignEnd>(86) 9 0000-0000</DataTableCell>
                         <SimpleMenu handle={<IconButton icon="zoom_in"/>}>
@@ -80,7 +80,7 @@ function cadastrarNovo(){
                         </SimpleMenu>  
                       </DataTableRow>
                       <DataTableRow>
-                        <DataTableCell><a href="">Picanharia do Gaúcho</a></DataTableCell>
+                        <DataTableCell><a href="/">Picanharia do Gaúcho</a></DataTableCell>
                         <DataTableCell alignEnd>00.000.000/0001-01</DataTableCell>
                         <DataTableCell alignEnd>(86) 9 0000-0000</DataTableCell>
                           <SimpleMenu handle={<IconButton icon="zoom_in"/>}>
@@ -95,7 +95,7 @@ function cadastrarNovo(){
                               </SimpleMenu>  
                       </DataTableRow>
                       <DataTableRow>
-                        <DataTableCell><a href="">Outback</a></DataTableCell>
+                        <DataTableCell><a href="/">Outback</a></DataTableCell>
                         <DataTableCell alignEnd>00.000.000/0001-01</DataTableCell>
                         <DataTableCell alignEnd>(86) 9 0000-0000</DataTableCell>
                           <SimpleMenu handle={<IconButton icon="zoom_in"/>}>

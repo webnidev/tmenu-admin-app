@@ -23,6 +23,7 @@ import BillingIndex from "./components/Billing/BillingIndex";
 import AccountIndex from "./components/Account/AccountIndex";
 import TaxRulesIndex from "./components/TaxRules/TaxRulesIndex";
 import IntegrationsIndex from "./components/Integrations/IntegrationsIndex";
+import Login from "./components/Login/Login";
 
 const MainNav = () => {
   return (
@@ -78,7 +79,8 @@ const MainNav = () => {
           {/* <Route path="/users" element={ <UsersIndex/> } /> */}
           <Route path="/my-account" element={ <AccountIndex/>} />
           <Route path="/tax-rules" element={ <TaxRulesIndex/>} />
-          <Route path="/integrations" element={ <IntegrationsIndex/>} />                    
+          <Route path="/integrations" element={ <IntegrationsIndex/>} />
+          <Route path="/login/*" element={<Login />} />                    
         </Routes>
       </BrowserRouter>
     </>

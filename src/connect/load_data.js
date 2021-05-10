@@ -1,11 +1,12 @@
 export const loadData = async()=>{
-    const dataResponse = fetch('http://localhost:3333/v1/admin/company-data',{
+    const dataResponse = await fetch('https://api.tmenu.com.br/v1/admin/company-data',{
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImlhdCI6MTYwNjU3MTM5OX0.AfW3mIkZ0ovOYCjIFSneujnOlH_bMLSXFZrwbMBd7lg'
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjYsImlhdCI6MTYyMDY2ODgzM30.aOolG7NmO58I6pg-4z19oEAhI5QxCQ-K_1IX53YULHc'
         }
     })
-    const [data] = await Promise.all([dataResponse])
-    const dataJson = await data.json()
-    return dataJson
+    //const data = await Promise.all([dataResponse])
+    const {data} = await dataResponse.json()
+    console.log(data)
+    return data
 }
