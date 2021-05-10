@@ -1,7 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Grid, GridCell, Card, Typography, Icon } from "rmwc";
+import  { loadData } from '../connect/load_data'
 
 const Home = () => {
+
+  //const [companies, setCompanies] = useState(null)
+  //const [cards, setCards] = useState(null)
+  //const [itens, setItens] = useState(null)
+  const [nData, setData] = useState([])
+
+  const getData = async ()=>{
+    const { data } = await loadData()
+    setData(data)
+    //setCompanies(nCompanies)
+    //setCards(nCards)
+    //setItens(nItens)
+  }
+
+  useEffect(()=>{
+    getData()
+  },[])
+
     return (
         <>
           <div className={"PageContainer"}>
@@ -13,21 +32,21 @@ const Home = () => {
                 <Card>
                   <Icon icon={{ icon: 'view_comfy', size: 'xlarge' }} style={{ color: '#16A104'}} />
                   <span className={"CardsHomeTitle"}>ESTABELECIMENTOS ATIVOS</span>
-                  <span className={"CardsHomeValue"} style={{ color: '#16A104'}}>2376</span>
+                  <span className={"CardsHomeValue"} style={{ color: '#16A104'}}>{nData[0].companies}</span>
                 </Card>
               </GridCell>
               <GridCell>
                 <Card>
                   <Icon icon={{ icon: 'receipt_long', size: 'xlarge' }} style={{ color: '#169FFF'}} />
                   <span className={"CardsHomeTitle"}>TOTAL DE COMANDAS FATURADAS</span>
-                  <span className={"CardsHomeValue"} style={{ color: '#169FFF'}}>19812</span>
+                  <span className={"CardsHomeValue"} style={{ color: '#169FFF'}}>{nData[1].cards}</span>
                 </Card>
               </GridCell>
               <GridCell>
                 <Card>
                 <Icon icon={{ icon: 'shopping_cart', size: 'xlarge' }} style={{ color: '#FF144F'}} />
                   <span className={"CardsHomeTitle"}>TOTAL DE PEDIDOS REALIZADOS</span>
-                  <span className={"CardsHomeValue"} style={{ color: '#FF144F'}}>68771</span>
+                  <span className={"CardsHomeValue"} style={{ color: '#FF144F'}}>{nData[2].itens}</span>
                 </Card>
               </GridCell>            
             </Grid>
