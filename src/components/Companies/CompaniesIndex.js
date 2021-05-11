@@ -1,4 +1,5 @@
 import React from "react";
+import MainNav from '../../MainNav'
 import { Grid, GridCell, GridRow,
   Typography,
   Button,
@@ -28,6 +29,7 @@ function cadastrarNovo(){
 
   return (
     <>          
+    <MainNav/>
      <div className={"PageContainer"}>
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Estabelecimentos</Typography></h1>             

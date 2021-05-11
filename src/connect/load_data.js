@@ -7,6 +7,5 @@ export const loadData = async()=>{
     })
     //const data = await Promise.all([dataResponse])
     const {data} = await dataResponse.json()
-    console.log(data)
     return data
 }

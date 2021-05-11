@@ -26,9 +26,10 @@ import IntegrationsIndex from "./components/Integrations/IntegrationsIndex";
 import Login from "./components/Login/Login";
 
 const MainNav = () => {
+  //let logedin = true
   return (
     <>
-      <BrowserRouter>
+     
         <Drawer>
           <DrawerHeader>
             <Logo/>
@@ -70,19 +71,8 @@ const MainNav = () => {
           </DrawerContent>
         </Drawer>
 
-        <Routes>
-          <Route path="/" element={<Home />} end />
-          <Route path="/companies" element={ <CompaniesIndex/>} />
-          <Route path="/add-company" element={ <AddCompany/>} />
-          <Route path="/charges" element={ <ChargesIndex/>} />
-          <Route path="/billing" element={ <BillingIndex/>} />
-          {/* <Route path="/users" element={ <UsersIndex/> } /> */}
-          <Route path="/my-account" element={ <AccountIndex/>} />
-          <Route path="/tax-rules" element={ <TaxRulesIndex/>} />
-          <Route path="/integrations" element={ <IntegrationsIndex/>} />
-          <Route path="/login/*" element={<Login />} />                    
-        </Routes>
-      </BrowserRouter>
+       
+
     </>
   );
 };

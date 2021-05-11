@@ -1,4 +1,5 @@
 import React from 'react'
+import MainNav from '../../MainNav'
 import { 
   Typography,
   Grid,
@@ -21,6 +22,7 @@ import {
 const ChargesIndex = () => {
     return (
         <>
+        <MainNav/>
           <div className={"PageContainer"}>
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Cobranças</Typography></h1>             
