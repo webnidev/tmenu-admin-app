@@ -10,23 +10,27 @@ import AccountIndex from "./components/Account/AccountIndex";
 import TaxRulesIndex from "./components/TaxRules/TaxRulesIndex";
 import IntegrationsIndex from "./components/Integrations/IntegrationsIndex";
 import Login from "./components/Login/Login";
+import Logout from './components/Logout/Logout'
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
+import  ProtectedRoute  from './Helper/ProtectedRoute'
+import RedirectToHome from './Helper/RedirectToHome'
 
 const App = () => {
   return (
     <BrowserRouter>            
       <div className={"MainContainer"}>
         <Routes>
-          <Route path="/" element={<Home />} end />
-          <Route path="/companies" element={ <CompaniesIndex/>} />
-          <Route path="/add-company" element={ <AddCompany/>} />
-          <Route path="/charges" element={ <ChargesIndex/>} />
-          <Route path="/billing" element={ <BillingIndex/>} />
+          <RedirectToHome path="/login" element={<Login />} />
+          <ProtectedRoute path="/" element={<Home />} end />
+          <ProtectedRoute path="/companies" element={ <CompaniesIndex/>} />
+          <ProtectedRoute path="/add-company" element={ <AddCompany/>} />
+          <ProtectedRoute path="/charges" element={ <ChargesIndex/>} />
+          <ProtectedRoute path="/billing" element={ <BillingIndex/>} />
           {/* <Route path="/users" element={ <UsersIndex/> } /> */}
-          <Route path="/my-account" element={ <AccountIndex/>} />
-          <Route path="/tax-rules" element={ <TaxRulesIndex/>} />
-          <Route path="/integrations" element={ <IntegrationsIndex/>} />
-          <Route path="/login" element={<Login />} />
+          <ProtectedRoute path="/my-account" element={ <AccountIndex/>} />
+          <ProtectedRoute path="/tax-rules" element={ <TaxRulesIndex/>} />
+          <ProtectedRoute path="/integrations" element={ <IntegrationsIndex/>} />
+          <ProtectedRoute path="/logout" element={<Logout />} />
         </Routes>
       </div>      
     </BrowserRouter>

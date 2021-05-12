@@ -25,8 +25,8 @@ import TaxRulesIndex from "./components/TaxRules/TaxRulesIndex";
 import IntegrationsIndex from "./components/Integrations/IntegrationsIndex";
 import Login from "./components/Login/Login";
 
+
 const MainNav = () => {
-  //let logedin = true
   return (
     <>
      
@@ -64,7 +64,7 @@ const MainNav = () => {
                 <ListItemGraphic icon="sync_alt" /> Integrações
               </ListItem>
               <hr className={"Divider"} />              
-              <ListItem tag={Link} to="/logout">
+              <ListItem tag={Link} to="/logout" >
                 <ListItemGraphic icon="exit_to_app" /> Sair
               </ListItem>
             </List>

@@ -1,25 +1,19 @@
 import React from 'react';
-import { Typography, TextField, Grid, GridRow, GridCell, Button, Switch, PasswordField } from "rmwc";
-
+import { Navigate } from 'react-router-dom'
+import { Typography, TextField, Grid, GridRow, GridCell, Button } from "rmwc";
+import {login} from '../../connect/load_data'
 const Login = () => {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-
   const  handleSubimit = async event=>{
     event.preventDefault()
-    const response = await fetch('https://api.tmenu.com.br/v1/auth/login',{
-      method:'POST',
-      headers:{
-        'Content-Type':'Aplication/json'
-      },
-      body:JSON.stringify({
-        email:event.target.email.value, 
-        password:event.target.password.value
-      })
-    })
-    const res = response.json()
-    console.log(response)
-    return
+    const data = await login({email: event.target.email.value, password:event.target.password.value})
+    if(data.token){
+      console.log(data.token)
+      window.localStorage.setItem('token',data.token)
+      return <Navigate to="/" />
+    }else{
+      return <Navigate to="/login" />
+    }
+   
   }
 
   return (

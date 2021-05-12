@@ -1,6 +1,6 @@
 export const API_URL = 'https://api.tmenu.com.br/v1/';
 
-export function TOKEN_POST(body) {
+export function LOGIN(body) {
   return {
     url: API_URL + 'auth/login',
     options: {

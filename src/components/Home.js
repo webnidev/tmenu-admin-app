@@ -3,26 +3,15 @@ import { Grid, GridCell, Card, Typography, Icon } from "rmwc";
 import  { loadData } from '../connect/load_data'
 import MainNav from '../MainNav'
 const Home = () => {
-
-  //const [companies, setCompanies] = useState(null)
-  //const [cards, setCards] = useState(null)
-  //const [itens, setItens] = useState(null)
   const [data, setData] = useState([{companies:''},{cards:''},{itens:''}])
-
   const getData = async ()=>{
-    //const  {companies, cards, itens}  = await loadData()
     const data = await loadData()
-    console.log(data)
-    //setCompanies(companies)
-    //setCards(cards)
-    //setItens(itens)
     setData(data)
   }
 
   useEffect(()=>{
     getData()
   },[])
-
     return (
         <>
           <MainNav/>
