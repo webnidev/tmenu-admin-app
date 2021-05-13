@@ -1,3 +1,5 @@
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
 export const API_URL = 'https://api.tmenu.com.br/v1/';
 
 export const loadData = async()=>{
@@ -11,7 +13,8 @@ export const loadData = async()=>{
     const {data} = await dataResponse.json()
     return data
 }
-export const login = async(body)=>{
+export const LoginUser = async(body)=>{
+    const navigate = useNavigate();
     const response = await fetch(`${API_URL}auth/login`,{
         headers:{
             'Content-Type': 'application/json'
@@ -20,6 +23,6 @@ export const login = async(body)=>{
         method:'POST'
     })
     const {data} = await response.json()  
-    return data
-    
+    window.localStorage.setItem('token', data.token)
+    navigate('/')
 }

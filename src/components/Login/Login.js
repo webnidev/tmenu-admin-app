@@ -1,21 +1,11 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom'
 import { Typography, TextField, Grid, GridRow, GridCell, Button } from "rmwc";
-import {login} from '../../connect/load_data'
+import {LoginUser} from '../../connect/load_data'
 const Login = () => {
-  const  handleSubimit = async event=>{
-    event.preventDefault()
-    const data = await login({email: event.target.email.value, password:event.target.password.value})
-    if(data.token){
-      console.log(data.token)
-      window.localStorage.setItem('token',data.token)
-      return <Navigate to="/" />
-    }else{
-      return <Navigate to="/login" />
-    }
-   
+  async function handleSubimit(event){  
+    event.preventDefault()  
+      LoginUser({email: event.target.email.value, password:event.target.password.value})
   }
-
   return (
     <>
      <div className={"PageContainer"}>
