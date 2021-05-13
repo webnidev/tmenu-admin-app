@@ -25,10 +25,9 @@ export function TOKEN_VALIDATE_POST(token) {
   };
 }
 
-  
 export function USER_GET(token) {
   return {
-    url: API_URL + '/admin/profile',
+    url: API_URL + 'admin/profile',
     options: {
       method: 'GET',
       headers: {
@@ -38,3 +37,32 @@ export function USER_GET(token) {
     },
   };
 }
+
+export function GET_COMPANIES(token) {
+  return {
+    url: API_URL + 'admin/company',
+    options: {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    },
+  }
+}
+  export function UPDATE_COMPANY(token, id, status) {
+    return {
+      url: API_URL + 'admin/company/'+id,
+      options: {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+        body:JSON.stringify({status: status})
+      },
+    }
+}
+
+
+  

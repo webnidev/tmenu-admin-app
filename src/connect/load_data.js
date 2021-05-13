@@ -13,16 +13,3 @@ export const loadData = async()=>{
     const {data} = await dataResponse.json()
     return data
 }
-export const LoginUser = async(body)=>{
-    const navigate = useNavigate();
-    const response = await fetch(`${API_URL}auth/login`,{
-        headers:{
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(body),
-        method:'POST'
-    })
-    const {data} = await response.json()  
-    window.localStorage.setItem('token', data.token)
-    navigate('/')
-}
