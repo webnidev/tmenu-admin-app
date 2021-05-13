@@ -15,7 +15,7 @@ export function LOGIN(body) {
 
 export function TOKEN_VALIDATE_POST(token) {
   return {
-    url: API_URL + '/jwt-auth/v1/token/validate',
+    url: API_URL + '/',
     options: {
       method: 'POST',
       headers: {
@@ -28,10 +28,11 @@ export function TOKEN_VALIDATE_POST(token) {
   
 export function USER_GET(token) {
   return {
-    url: API_URL + '/api/user',
+    url: API_URL + '/admin/profile',
     options: {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
     },

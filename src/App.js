@@ -14,10 +14,11 @@ import Logout from './components/Logout/Logout'
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import  ProtectedRoute  from './Helper/ProtectedRoute'
 import RedirectToHome from './Helper/RedirectToHome'
-
+import { UserStorage } from './UserContext';
 const App = () => {
   return (
-    <BrowserRouter>            
+    <BrowserRouter> 
+      <UserStorage>           
       <div className={"MainContainer"}>
         <Routes>
           <RedirectToHome path="/login" element={<Login />} />
@@ -33,6 +34,7 @@ const App = () => {
           <ProtectedRoute path="/logout" element={<Logout />} />
         </Routes>
       </div>      
+      </UserStorage>
     </BrowserRouter>
   );
 };

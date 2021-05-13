@@ -1,10 +1,12 @@
 import React from 'react';
 import { Typography, TextField, Grid, GridRow, GridCell, Button } from "rmwc";
-import {LoginUser} from '../../connect/load_data'
+import { UserContext } from '../../UserContext';
+
 const Login = () => {
+  const { userLogin } = React.useContext(UserContext);
   async function handleSubimit(event){  
     event.preventDefault()  
-      LoginUser({email: event.target.email.value, password:event.target.password.value})
+      userLogin({email: event.target.email.value, password:event.target.password.value})
   }
   return (
     <>
