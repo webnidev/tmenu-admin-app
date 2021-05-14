@@ -38,9 +38,13 @@ export function USER_GET(token) {
   };
 }
 
-export function GET_COMPANIES(token) {
+export function GET_COMPANIES(token, paginate, search=null) {
+  let url = `${API_URL}admin/company?page=${paginate.page}&limit=${paginate.perPage}`
+    if(search){
+      url+=search
+    }
   return {
-    url: API_URL + 'admin/company',
+    url: url,
     options: {
       method: 'GET',
       headers: {
@@ -51,15 +55,16 @@ export function GET_COMPANIES(token) {
   }
 }
   export function UPDATE_COMPANY(token, id, status) {
+    let url = `${API_URL}admin/company/${id}`
     return {
-      url: API_URL + 'admin/company/'+id,
+      url: url,
       options: {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + token,
         },
-        body:JSON.stringify({status: status})
+        body:JSON.stringify({status: !status})
       },
     }
 }

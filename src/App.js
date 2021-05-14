@@ -5,7 +5,7 @@ import CompaniesIndex from "./components/Companies/CompaniesIndex";
 import AddCompany from "./components/Companies/AddCompany";
 import ChargesIndex from "./components/Charges/ChargesIndex";
 import BillingIndex from "./components/Billing/BillingIndex";
-//import UsersIndex from "./components/Users/UsersIndex";
+import UsersIndex from "./components/Users/UsersIndex";
 import AccountIndex from "./components/Account/AccountIndex";
 import TaxRulesIndex from "./components/TaxRules/TaxRulesIndex";
 import IntegrationsIndex from "./components/Integrations/IntegrationsIndex";
@@ -27,7 +27,7 @@ const App = () => {
           <ProtectedRoute path="/add-company" element={ <AddCompany/>} />
           <ProtectedRoute path="/charges" element={ <ChargesIndex/>} />
           <ProtectedRoute path="/billing" element={ <BillingIndex/>} />
-          {/* <Route path="/users" element={ <UsersIndex/> } /> */}
+          <ProtectedRoute path="/users" element={ <UsersIndex/> } /> 
           <ProtectedRoute path="/my-account" element={ <AccountIndex/>} />
           <ProtectedRoute path="/tax-rules" element={ <TaxRulesIndex/>} />
           <ProtectedRoute path="/integrations" element={ <IntegrationsIndex/>} />
