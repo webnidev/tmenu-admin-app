@@ -30,15 +30,8 @@ const ChargesIndex = () => {
     if(!token){
       throw new Error(`Error: ${response.statusText}`)
     }
-      //const { url, options } = GET_BILLINGS(token,paginate)
-      //const response = await fetch(url, options)
-      const response = await fetch('http://localhost:3333/v1/admin/billing',{
-        method: 'GET',
-        headers:{
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token,
-        }
-      })
+      const { url, options } = GET_BILLINGS(token,paginate)
+      const response = await fetch(url, options)
       if(!response.ok) throw new Error(`Error: ${response.statusText}`)
       const {billings} = await response.json()
       setData(billings.data)
@@ -59,7 +52,6 @@ const ChargesIndex = () => {
 
             <Grid className={"CustomContainer"}>
             <GridRow>
-              {console.log(data)}
                     <GridCell span={8}>                     
                       <Button className={"BtnDefaultTmenu"} label="Filtrar por Período" icon="event_note  " />                      
                       <SimpleMenu handle={<Button className={"BtnDefaultTmenu"} label="Filtrar por Status" icon="filter_list" />}>
@@ -94,68 +86,30 @@ const ChargesIndex = () => {
                       </DataTableRow>
                     </DataTableHead>
                     <DataTableBody>
-                      <DataTableRow>
-                        <DataTableCell><a href="/">Côco Bambú Teresina</a></DataTableCell>
-                        <DataTableCell alignEnd>Fatura 02 - Janeiro 2021</DataTableCell>
-                        <DataTableCell alignEnd>891</DataTableCell>
-                        <DataTableCell alignEnd className={"strong"}>R$ 3982</DataTableCell>
-                         <td>                        
-                          <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                            <MenuItem>Enviar</MenuItem>
-                            <MenuItem>Marcar como Paga</MenuItem>
-                            <MenuItem>Marcar como Cancelada</MenuItem>                            
-                          </SimpleMenu>
-                        </td>
-                        <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>
-                        <DataTableCell alignEnd>                           
-                              <Badge className={"TmenuInProcess"} align="inline" label="Gerada" />                                                                            
-                        </DataTableCell>                        
-                      </DataTableRow>
-                      <DataTableRow>
-                        <DataTableCell><a href="/">Morgan Sushi</a></DataTableCell>
-                        <DataTableCell alignEnd>Fatura 01 - Janeiro 2021</DataTableCell>
-                        <DataTableCell alignEnd>981</DataTableCell>
-                        <DataTableCell alignEnd className={"strong"}>R$ 8761</DataTableCell>
-                        <td>                        
-                          <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                            <MenuItem>Enviar</MenuItem>
-                            <MenuItem>Marcar como Paga</MenuItem>
-                            <MenuItem>Marcar como Cancelada</MenuItem>                            
-                          </SimpleMenu>
-                        </td>
-                        <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>
-                        <DataTableCell alignEnd><Badge className={"TmenuInfo"} align="inline" label="Enviada" /></DataTableCell>
-                      </DataTableRow>
-                        <DataTableRow>
-                          <DataTableCell><a href="/">Fogo Campeiro The</a></DataTableCell>
-                          <DataTableCell alignEnd>Fatura 02 - Dezembro 2020</DataTableCell>
-                          <DataTableCell alignEnd>1821</DataTableCell>
-                          <DataTableCell alignEnd className={"strong"}>R$ 8172</DataTableCell>
-                          <td>                        
-                          <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                            <MenuItem>Enviar</MenuItem>
-                            <MenuItem>Marcar como Paga</MenuItem>
-                            <MenuItem>Marcar como Cancelada</MenuItem>                            
-                          </SimpleMenu>
-                        </td>
-                        <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>                    
-                          <DataTableCell alignEnd><Badge className={"TmenuSuccess"} align="inline" label="Paga" /></DataTableCell>                             
-                      </DataTableRow>
-                      <DataTableRow>
-                          <DataTableCell><a href="/">Deck Dirceu</a></DataTableCell>
-                          <DataTableCell alignEnd>Fatura 02 - Dezembro 2020</DataTableCell>
-                          <DataTableCell alignEnd>1921</DataTableCell>
-                          <DataTableCell alignEnd className={"strong"}>R$ 9872</DataTableCell>
-                          <td>                        
-                          <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                            <MenuItem>Enviar</MenuItem>
-                            <MenuItem>Marcar como Paga</MenuItem>
-                            <MenuItem>Marcar como Cancelada</MenuItem>                            
-                          </SimpleMenu>
-                        </td>
-                        <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>                
-                          <DataTableCell alignEnd><Badge className={"TmenuDanger"} align="inline" label="Cancelada" /></DataTableCell>                             
-                      </DataTableRow>                        
+                    {data.map( billing =>{
+                        return(
+                          <DataTableRow>
+                      <DataTableCell><a href="/">Côco Bambú Teresina</a></DataTableCell>
+                      <DataTableCell alignEnd>Fatura 02 - Janeiro 2021</DataTableCell>
+                      <DataTableCell alignEnd>891</DataTableCell>
+                      <DataTableCell alignEnd className={"strong"}>R$ 3982</DataTableCell>
+                       <td>                        
+                        <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
+                          <MenuItem>Enviar</MenuItem>
+                          <MenuItem>Marcar como Paga</MenuItem>
+                          <MenuItem>Marcar como Cancelada</MenuItem>                            
+                        </SimpleMenu>
+                      </td>
+                      <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>
+                      <DataTableCell alignEnd>                           
+                            <Badge className={"TmenuInProcess"} align="inline" label="Gerada" />                                                                            
+                      </DataTableCell>                        
+                    </DataTableRow>
+                        )
+                      }
+                    )
+                      
+                     } 
                     </DataTableBody>
                   </DataTableContent>
                 </DataTable>

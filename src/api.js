@@ -1,5 +1,5 @@
-//export const API_URL = 'https://api.tmenu.com.br/v1/';
-export const API_URL = 'http://localhost:3333/v1/';
+export const API_URL = 'https://api.tmenu.com.br/v1/';
+//export const API_URL = 'http://localhost:3333/v1/';
 
 
 export function LOGIN(body) {
@@ -75,14 +75,14 @@ export function GET_BILLINGS(token, paginate, search=null){
   let url = `${API_URL}admin/billing?page=${paginate.page}&limit=${paginate.perPage}`
   if(search){
     url+=search
-    return{
-      url: url,
-      options:{
-        method: 'GET',
-        headers:{
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token,
-        }
+  }
+  return{
+    url: url,
+    options:{
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
       }
     }
   }

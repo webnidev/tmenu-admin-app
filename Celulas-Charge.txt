@@ -1,0 +1,45 @@
+                      <DataTableRow>
+                        <DataTableCell><a href="/">Morgan Sushi</a></DataTableCell>
+                        <DataTableCell alignEnd>Fatura 01 - Janeiro 2021</DataTableCell>
+                        <DataTableCell alignEnd>981</DataTableCell>
+                        <DataTableCell alignEnd className={"strong"}>R$ 8761</DataTableCell>
+                        <td>                        
+                          <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
+                            <MenuItem>Enviar</MenuItem>
+                            <MenuItem>Marcar como Paga</MenuItem>
+                            <MenuItem>Marcar como Cancelada</MenuItem>                            
+                          </SimpleMenu>
+                        </td>
+                        <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>
+                        <DataTableCell alignEnd><Badge className={"TmenuInfo"} align="inline" label="Enviada" /></DataTableCell>
+                      </DataTableRow>
+                        <DataTableRow>
+                          <DataTableCell><a href="/">Fogo Campeiro The</a></DataTableCell>
+                          <DataTableCell alignEnd>Fatura 02 - Dezembro 2020</DataTableCell>
+                          <DataTableCell alignEnd>1821</DataTableCell>
+                          <DataTableCell alignEnd className={"strong"}>R$ 8172</DataTableCell>
+                          <td>                        
+                          <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
+                            <MenuItem>Enviar</MenuItem>
+                            <MenuItem>Marcar como Paga</MenuItem>
+                            <MenuItem>Marcar como Cancelada</MenuItem>                            
+                          </SimpleMenu>
+                        </td>
+                        <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>                    
+                          <DataTableCell alignEnd><Badge className={"TmenuSuccess"} align="inline" label="Paga" /></DataTableCell>                             
+                      </DataTableRow>
+                      <DataTableRow>
+                          <DataTableCell><a href="/">Deck Dirceu</a></DataTableCell>
+                          <DataTableCell alignEnd>Fatura 02 - Dezembro 2020</DataTableCell>
+                          <DataTableCell alignEnd>1921</DataTableCell>
+                          <DataTableCell alignEnd className={"strong"}>R$ 9872</DataTableCell>
+                          <td>                        
+                          <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
+                            <MenuItem>Enviar</MenuItem>
+                            <MenuItem>Marcar como Paga</MenuItem>
+                            <MenuItem>Marcar como Cancelada</MenuItem>                            
+                          </SimpleMenu>
+                        </td>
+                        <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>                
+                          <DataTableCell alignEnd><Badge className={"TmenuDanger"} align="inline" label="Cancelada" /></DataTableCell>                             
+                      </DataTableRow>  
