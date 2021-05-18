@@ -19,7 +19,36 @@ import {
   TextField
 } from "rmwc";
 
+import { GET_BILLINGS } from '../../api';
+
 const ChargesIndex = () => {
+  const [data, setData] = React.useState([])
+  const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
+
+  const getData = async ()=>{
+    const token = window.localStorage.getItem('token')
+    if(!token){
+      throw new Error(`Error: ${response.statusText}`)
+    }
+      //const { url, options } = GET_BILLINGS(token,paginate)
+      //const response = await fetch(url, options)
+      const response = await fetch('http://localhost:3333/v1/admin/billing',{
+        method: 'GET',
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        }
+      })
+      if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+      const {billings} = await response.json()
+      setData(billings.data)
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
+  }
+
+  React.useEffect(()=>{
+    getData()
+  }, [])
+
     return (
         <>
         <MainNav/>
@@ -30,6 +59,7 @@ const ChargesIndex = () => {
 
             <Grid className={"CustomContainer"}>
             <GridRow>
+              {console.log(data)}
                     <GridCell span={8}>                     
                       <Button className={"BtnDefaultTmenu"} label="Filtrar por Período" icon="event_note  " />                      
                       <SimpleMenu handle={<Button className={"BtnDefaultTmenu"} label="Filtrar por Status" icon="filter_list" />}>

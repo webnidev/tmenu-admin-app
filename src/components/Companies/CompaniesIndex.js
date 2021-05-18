@@ -35,12 +35,12 @@ const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, last
 const getData = async ()=>{
   const token = window.localStorage.getItem('token')
   if(token){
-    const { url, options } = GET_COMPANIES(token,paginate); 
+    const { url, options } = GET_COMPANIES(token,paginate) 
     const response = await fetch(url, options)
-    if(!response.ok) throw new Error(`Error: ${response.statusText}`);
+    if(!response.ok) throw new Error(`Error: ${response.statusText}`)
     const {company} = await response.json()
     setData(company.data)
-    setPaginate({total:company.total, perPage:company.perPage, page:company.page, lastPage:company.lastPage})
+    setPaginate({total:company.total, perPage:company.perPage, page:company.page, lastPage:company.lastpage})
   }
  
 }
@@ -57,6 +57,7 @@ const handleSubimit = async event =>{
 }
 const updateStatus = async event =>{
   event.preventDefault()
+  console.log("event update")
   const token = window.localStorage.getItem('token')
   const status = [false,true]
   if(token){
