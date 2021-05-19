@@ -33,7 +33,8 @@ const [data, setData] = React.useState([])
 const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastPage:0})
 
 const getData = async ()=>{
-  const token = window.localStorage.getItem('token')
+  try {
+    const token = window.localStorage.getItem('token')
   if(token){
     const { url, options } = GET_COMPANIES(token,paginate) 
     const response = await fetch(url, options)
@@ -42,6 +43,11 @@ const getData = async ()=>{
     setData(company.data)
     setPaginate({total:company.total, perPage:company.perPage, page:company.page, lastPage:company.lastpage})
   }
+    
+  } catch (error) {
+    console.log(error)
+  }
+  
  
 }
 const handleSubimit = async event =>{

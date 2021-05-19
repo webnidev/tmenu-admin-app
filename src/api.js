@@ -40,6 +40,19 @@ export function USER_GET(token) {
   };
 }
 
+export function GET_STATISTIC_COMPAMPANIES(token){
+  return{
+    url:  API_URL+'admin/company-data',
+    options:{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      }
+    }
+  }
+}
+
 export function GET_COMPANIES(token, paginate, search=null) {
   let url = `${API_URL}admin/company?page=${paginate.page}&limit=${paginate.perPage}`
     if(search){

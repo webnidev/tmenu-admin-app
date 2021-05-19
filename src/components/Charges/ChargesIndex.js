@@ -16,7 +16,12 @@ import {
   Badge,
   SimpleMenu,
   MenuItem,
-  TextField
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogButton 
 } from "rmwc";
 
 import { GET_BILLINGS } from '../../api';
@@ -24,6 +29,7 @@ import { GET_BILLINGS } from '../../api';
 const ChargesIndex = () => {
   const [data, setData] = React.useState([])
   const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
+  const [dialog, setDialog] = React.useState(false);
 
   const getData = async ()=>{
     const token = window.localStorage.getItem('token')
@@ -36,6 +42,12 @@ const ChargesIndex = () => {
       const {billings} = await response.json()
       setData(billings.data)
       setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
+  }
+
+  const handleSendBilling = async event =>{
+    event.preventDefault()
+    console.log(event.target.url.value)
+    console.log(event.target.billing_id.value)
   }
 
   React.useEffect(()=>{
@@ -88,21 +100,52 @@ const ChargesIndex = () => {
                     <DataTableBody>
                     {data.map( billing =>{
                         return(
-                          <DataTableRow>
-                      <DataTableCell><a href="/">Côco Bambú Teresina</a></DataTableCell>
-                      <DataTableCell alignEnd>Fatura 02 - Janeiro 2021</DataTableCell>
-                      <DataTableCell alignEnd>891</DataTableCell>
-                      <DataTableCell alignEnd className={"strong"}>R$ 3982</DataTableCell>
-                       <td>                        
+                          <DataTableRow key={billing.id}>
+                      <DataTableCell><a href="/">{billing.name}</a></DataTableCell>
+                      <DataTableCell alignEnd>{billing.description}</DataTableCell>
+                      <DataTableCell alignEnd>{billing.cards}</DataTableCell>
+                      <DataTableCell alignEnd className={"strong"}>R$ {billing.value}</DataTableCell>
+                       <td>        
+                         <Dialog open={dialog} onClose={event =>{
+                           console.log(event.detail.action);
+                           setDialog(false)
+                         }}
+                         onClosed={event => console.log(event.detail.action)}
+                         >  
+                            <DialogTitle>Informe a url de pagamento</DialogTitle>
+                            
+                            <DialogContent>
+                              <TextField  name="url" id={billing.name} className={"CustomInputSearch"} outlined/>
+                              <TextField  name="billing_id" value={billing.name} type="hidden"/>
+                            </DialogContent>
+                            <DialogActions>
+                            <DialogButton action="close">Cancelar</DialogButton>
+                            <DialogButton action="confirm" isDefaultAction onClick={handleSendBilling}>
+                              Enviar
+                            </DialogButton>    
+                            
+                            </DialogActions>
+                          </Dialog>                
                         <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                          <MenuItem>Enviar</MenuItem>
+                          <MenuItem onClick={() => setDialog(true)}>Enviar</MenuItem>
                           <MenuItem>Marcar como Paga</MenuItem>
                           <MenuItem>Marcar como Cancelada</MenuItem>                            
                         </SimpleMenu>
                       </td>
-                      <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>
-                      <DataTableCell alignEnd>                           
-                            <Badge className={"TmenuInProcess"} align="inline" label="Gerada" />                                                                            
+                      <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined type="button" /></DataTableCell>
+                      <DataTableCell alignEnd>
+                        { billing.status ==="GERADA" && 
+                          <Badge className={"TmenuInProcess"} align="inline" label="Gerada" />
+                        }
+                        { billing.status ==="ENVIADA" && 
+                          <Badge className={"TmenuInfo"} align="inline" label="Enviada" />
+                        }
+                        { billing.status ==="PAGA" && 
+                          <Badge className={"TmenuSuccess"} align="inline" label="Paga" />
+                        }
+                        { billing.status ==="CANCELADA" && 
+                          <Badge className={"TmenuDanger"} align="inline" label="Cancelada" />
+                        }                                                                                
                       </DataTableCell>                        
                     </DataTableRow>
                         )

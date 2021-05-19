@@ -1,12 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import { Grid, GridCell, Card, Typography, Icon } from "rmwc";
-import  { loadData } from '../connect/load_data'
+import { GET_STATISTIC_COMPAMPANIES } from '../api'
 import MainNav from '../MainNav'
 const Home = () => {
   const [data, setData] = useState([{companies:''},{cards:''},{itens:''}])
   const getData = async ()=>{
-    const data = await loadData()
+   try {
+    const token = window.localStorage.getItem('token')
+    if(!token) throw new Error(`Error: Token inválido!`)
+    const {url, options} = GET_STATISTIC_COMPAMPANIES(token)
+    const response = await fetch(url, options)
+    if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+    const {data} = await response.json()
     setData(data)
+   } catch (error) {
+    console.log(error)     
+   }
   }
 
   useEffect(()=>{
