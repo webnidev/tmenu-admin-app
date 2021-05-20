@@ -21,20 +21,44 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogButton 
+  DialogButton,
+  DialogQueue
 } from "rmwc";
+import { createDialogQueue } from '@rmwc/dialog';
+import { GET_BILLINGS, SEND_BILLING, UPDATE_BILLING } from '../../api';
 
-import { GET_BILLINGS } from '../../api';
+
 
 const ChargesIndex = () => {
   const [data, setData] = React.useState([])
   const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
-  const [dialog, setDialog] = React.useState(false);
+
+
+  const {dialogs ,prompt} = createDialogQueue()
+
+  const firePrompt = async (event) =>{
+    event.preventDefault()
+    prompt({ 
+      title:'Informe a url de pagamento:',
+      acceptLabel: 'Enviar',
+      cancelLabel: 'Cancelar',
+      inputProps: { outlined: true } 
+    }).then(res =>{
+      const body = {
+        "billing_id":2,
+        "billing_link":res
+      }
+      handleSendBilling(event, body)
+    }
+    )
+  }
+     
+
 
   const getData = async ()=>{
     const token = window.localStorage.getItem('token')
     if(!token){
-      throw new Error(`Error: ${response.statusText}`)
+      throw new Error(`Error: Token inválido`)
     }
       const { url, options } = GET_BILLINGS(token,paginate)
       const response = await fetch(url, options)
@@ -44,10 +68,41 @@ const ChargesIndex = () => {
       setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
   }
 
-  const handleSendBilling = async event =>{
+  const updateStatus = async event =>{
     event.preventDefault()
-    console.log(event.target.url.value)
-    console.log(event.target.billing_id.value)
+    try {
+      const token = window.localStorage.getItem('token')
+      const status = ["CANCELADA", "PAGA"]
+      const {url, options} = UPDATE_BILLING(token, event.target.id, status[event.target.value])
+      const response = await fetch(url, options)
+      console.log(response)
+      if(!response.ok){
+        throw new Error(`Error: ${response.statusText}`)
+      }
+      if(response.ok){
+        console.log("ok")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    console.log(event.target.id)
+    console.log(event.target.value)
+  }
+
+  const handleSendBilling = async (event, body) =>{
+    event.preventDefault()
+    try {
+    const  token = window.localStorage.getItem('token') 
+    const {url, options} = SEND_BILLING(token,body)
+    const response = await fetch(url, options)
+    //const {billing} = await response.json()
+    if(response.ok){
+      //window.location.reload()
+    }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   React.useEffect(()=>{
@@ -105,32 +160,21 @@ const ChargesIndex = () => {
                       <DataTableCell alignEnd>{billing.description}</DataTableCell>
                       <DataTableCell alignEnd>{billing.cards}</DataTableCell>
                       <DataTableCell alignEnd className={"strong"}>R$ {billing.value}</DataTableCell>
-                       <td>        
-                         <Dialog open={dialog} onClose={event =>{
-                           console.log(event.detail.action);
-                           setDialog(false)
-                         }}
-                         onClosed={event => console.log(event.detail.action)}
-                         >  
-                            <DialogTitle>Informe a url de pagamento</DialogTitle>
+                       <td>    
+                          
                             
-                            <DialogContent>
-                              <TextField  name="url" id={billing.name} className={"CustomInputSearch"} outlined/>
-                              <TextField  name="billing_id" value={billing.name} type="hidden"/>
-                            </DialogContent>
-                            <DialogActions>
-                            <DialogButton action="close">Cancelar</DialogButton>
-                            <DialogButton action="confirm" isDefaultAction onClick={handleSendBilling}>
-                              Enviar
-                            </DialogButton>    
-                            
-                            </DialogActions>
-                          </Dialog>                
                         <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                          <MenuItem onClick={() => setDialog(true)}>Enviar</MenuItem>
-                          <MenuItem>Marcar como Paga</MenuItem>
-                          <MenuItem>Marcar como Cancelada</MenuItem>                            
+                          <MenuItem id={billing.name} onClick={firePrompt}>
+                            Enviar
+                          </MenuItem>
+                          <MenuItem id={billing.name}  value="1" onClick={updateStatus}>
+                          Marcar como Paga
+                          </MenuItem>
+                          <MenuItem id={billing.name}  value="0" onClick={updateStatus}>
+                          Marcar como Cancelada
+                          </MenuItem>                            
                         </SimpleMenu>
+                        <DialogQueue dialogs={dialogs} />
                       </td>
                       <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined type="button" /></DataTableCell>
                       <DataTableCell alignEnd>

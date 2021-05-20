@@ -101,4 +101,33 @@ export function GET_BILLINGS(token, paginate, search=null){
   }
 }
 
-  
+
+export function SEND_BILLING(token, body){
+  const url = `${API_URL}admin/send-billing`
+  return{
+    url:url,
+    options:{
+      method:'PUT',
+      headers:{
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      },
+      body:JSON.stringify(body)
+    }
+  }
+}
+
+export function UPDATE_BILLING(token, id, status){
+  const url = `${API_URL}admin/set-paied/2`
+  return{
+    url:url,
+    options:{
+      method: 'PUT',
+      headers:{
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      },
+      body:JSON.stringify({status})
+    }
+  }
+}

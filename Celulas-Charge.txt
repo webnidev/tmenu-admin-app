@@ -43,3 +43,27 @@
                         <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined /></DataTableCell>                
                           <DataTableCell alignEnd><Badge className={"TmenuDanger"} align="inline" label="Cancelada" /></DataTableCell>                             
                       </DataTableRow>  
+
+
+
+                      <Dialog open={dialog} onClose={event =>{
+                           console.log(event.detail.action);
+                           setDialog(false)
+                         }}
+                         onClosed={event => handleSendBilling(event)}
+                         >  
+                            <DialogTitle>Informe a url de pagamento</DialogTitle>
+                            
+                            <DialogContent>
+                              
+                            </DialogContent>
+                            <DialogActions>
+                            <DialogButton action="close"  >Cancelar</DialogButton>
+                            <DialogButton action={4}  isDefaultAction>
+                              Enviar
+                            </DialogButton>    
+                            
+                            </DialogActions>
+                          </Dialog>             
+
+                          <MenuItem onClick={() => setDialog(true)}>Enviar</MenuItem>
