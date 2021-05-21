@@ -31,6 +31,7 @@ import { GET_BILLINGS, SEND_BILLING, UPDATE_BILLING } from '../../api';
 
 const ChargesIndex = () => {
   const [data, setData] = React.useState([])
+  const [showperiod, setShowperiod] = React.useState(false)
   const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
 
 
@@ -105,10 +106,61 @@ const ChargesIndex = () => {
     }
   }
 
+  const handleSearchToStatus = async event =>{
+    event.preventDefault()
+    try {
+      const status = ["GERADA", "ENVIADA", "PAGA", "CANCELADA"]
+      const token = window.localStorage.getItem('token')
+      if(!token) throw new Error(`Error: Token Inválido!`)
+      const search = `&status=${status[event.target.value]}`
+      const {url, options} = GET_BILLINGS(token, paginate, search)
+      const response = await fetch(url, options)
+      if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+      const {billings} = await response.json()
+      setData(billings.data)
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastPage:billings.lastPage})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const handleSearch = async event =>{
+    event.preventDefault()
+    try {
+      const token = window.localStorage.getItem('token')
+      if(!token) throw new Error(`Error: Token inválido!`)
+      const search = `&name=${event.target.nameorcnpj.value}`
+      const {url, options} = GET_BILLINGS(token, paginate, search)
+      const response = await fetch(url, options)
+      if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+      const {billings} = await response.json()
+      setData(billings.data)
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastPage:billings.lastPage})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleSearchToPeriod = async event =>{
+    event.preventDefault()
+    try{
+      const token = window.localStorage.getItem('token')
+      if(!token) throw new Error(`Error: Token inválido!`)
+      const search = `&start=${event.target.start_date.value}&end=${event.target.end_date.value}`
+      const {url, options} = GET_BILLINGS(token, paginate,search)
+      const response = await fetch(url, options)
+      if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+      const {billings} = await response.json()
+      setData(billings.data)
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastPage:billings.lastPage})
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   React.useEffect(()=>{
     getData()
   }, [])
-
+ 
     return (
         <>
         <MainNav/>
@@ -120,18 +172,27 @@ const ChargesIndex = () => {
             <Grid className={"CustomContainer"}>
             <GridRow>
                     <GridCell span={8}>                     
-                      <Button className={"BtnDefaultTmenu"} label="Filtrar por Período" icon="event_note  " />                      
+                      <Button className={"BtnDefaultTmenu"} label="Filtrar por Período" icon="event_note  " onClick={()=>{setShowperiod(!showperiod)}}/>                      
                       <SimpleMenu handle={<Button className={"BtnDefaultTmenu"} label="Filtrar por Status" icon="filter_list" />}>
-                        <MenuItem>Gerada</MenuItem>
-                        <MenuItem>Enviada</MenuItem>
-                        <MenuItem>Paga</MenuItem>
-                        <MenuItem>Cancelada</MenuItem>
+                        <MenuItem value="0" onClick={handleSearchToStatus} >Gerada</MenuItem>
+                        <MenuItem value="1" onClick={handleSearchToStatus}>Enviada</MenuItem>
+                        <MenuItem value="2" onClick={handleSearchToStatus}>Paga</MenuItem>
+                        <MenuItem value="3" onClick={handleSearchToStatus} >Cancelada</MenuItem>
                       </SimpleMenu>          
                       
-                    </GridCell>                    
-                    <GridCell span={4}>                      
-                        <TextField className={"CustomInputSearch"} outlined label="Buscar por Nome ou CNPJ..." />
+                    </GridCell>
+                    { showperiod &&
+                      <GridCell>
+                        <form onSubmit={handleSearchToPeriod}>
+                      <TextField label="Data inicial" type="date" name="start_date"/><TextField label="Data final" type="date" name="end_date"/>
+                      <Button label="Filtrar" outlined icon="search" className={"BtnDefaultSearch"} />  
+                      </form>
+                    </GridCell>}                    
+                    <GridCell span={4}>
+                      <form onSubmit={handleSearch}>                      
+                        <TextField className={"CustomInputSearch"} outlined name="nameorcnpj"label="Buscar por Nome ou CNPJ..." />
                         <Button label="Pesquisar" outlined icon="search" className={"BtnDefaultSearch"}/>
+                      </form>
                     </GridCell>
                 </GridRow>       
             </Grid>

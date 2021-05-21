@@ -40,6 +40,20 @@ export function USER_GET(token) {
   };
 }
 
+export function CREATE_COMPANY(token, body){
+  return{
+    url:API_URL+'admin/company',
+    optios:{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(body)
+    }
+  }
+}
+
 export function GET_STATISTIC_COMPAMPANIES(token){
   return{
     url:  API_URL+'admin/company-data',
@@ -131,3 +145,5 @@ export function UPDATE_BILLING(token, id, status){
     }
   }
 }
+
+
