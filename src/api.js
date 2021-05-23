@@ -40,16 +40,48 @@ export function USER_GET(token) {
   };
 }
 
-export function CREATE_COMPANY(token, body){
+export function CREATE_COMPANY(token, target){
+    
+    const data = {}
+    data.company = {
+      "name": target.name.value,
+      "email": target.email.value,
+      "cnpj": target.cnpj.value,
+      "phone":target.phone.value
+    }
+    data.address = {
+      "zipcode":target.zipcode.value,
+      "street":target.street.value,
+      "number":target.number.value,
+      "district":target.district.value,
+      "city":target.city.value,
+      "state":target.state.value,
+      "complement":target.complement.value
+    }
+    data.responsible = {
+      "responsible":target.responsible.value,
+      "responsible_phone":target.responsible_phone.value
+    }
+    data.waiter_rate = target.waiter_rate.checked
+  
+  let seen = []
   return{
     url:API_URL+'admin/company',
-    optios:{
-      method: 'POST',
+    options:{
+      method:'POST',
       headers:{
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(data,function(key, val){
+        if (typeof val == "object") {
+          if (seen.indexOf(val) >= 0) {
+              return
+          }
+          seen.push(val);
+      }
+      return val;
+      })
     }
   }
 }

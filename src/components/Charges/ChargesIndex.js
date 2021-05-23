@@ -1,5 +1,6 @@
 import React from 'react'
 import MainNav from '../../MainNav'
+import DialogIndex  from '../Dialog/DialogIndex'
 import { 
   Typography,
   Grid,
@@ -33,13 +34,17 @@ const ChargesIndex = () => {
   const [data, setData] = React.useState([])
   const [showperiod, setShowperiod] = React.useState(false)
   const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
-
-
+  const [start, setStart] = React.useState(false)
+  const [id, setId] = React.useState(0)
   const {dialogs ,prompt} = createDialogQueue()
 
-  const firePrompt = async (event) =>{
+  const showDialog = async (event) =>{
     event.preventDefault()
-    prompt({ 
+    
+  }
+     
+/**
+ * prompt({ 
       title:'Informe a url de pagamento:',
       acceptLabel: 'Enviar',
       cancelLabel: 'Cancelar',
@@ -52,9 +57,8 @@ const ChargesIndex = () => {
       handleSendBilling(event, body)
     }
     )
-  }
-     
-
+ * 
+ */
 
   const getData = async ()=>{
     const token = window.localStorage.getItem('token')
@@ -160,15 +164,19 @@ const ChargesIndex = () => {
   React.useEffect(()=>{
     getData()
   }, [])
- 
+ React.useEffect(()=>{
+   showDialog()
+ }, start)
+
     return (
         <>
         <MainNav/>
+        <DialogIndex start={start} id={id}/>
           <div className={"PageContainer"}>
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Cobranças</Typography></h1>             
           </div>
-
+          
             <Grid className={"CustomContainer"}>
             <GridRow>
                     <GridCell span={8}>                     
@@ -216,7 +224,9 @@ const ChargesIndex = () => {
                     <DataTableBody>
                     {data.map( billing =>{
                         return(
+                          
                           <DataTableRow key={billing.id}>
+                           
                       <DataTableCell><a href="/">{billing.name}</a></DataTableCell>
                       <DataTableCell alignEnd>{billing.description}</DataTableCell>
                       <DataTableCell alignEnd>{billing.cards}</DataTableCell>
@@ -225,8 +235,8 @@ const ChargesIndex = () => {
                           
                             
                         <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                          <MenuItem id={billing.name} onClick={firePrompt}>
-                            Enviar
+                          <MenuItem id={billing.name}  onClick={showDialog}>
+                            Enviar               
                           </MenuItem>
                           <MenuItem id={billing.name}  value="1" onClick={updateStatus}>
                           Marcar como Paga

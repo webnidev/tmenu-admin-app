@@ -2,43 +2,25 @@ import React from 'react'
 import { Typography, TextField, Grid, GridRow, GridCell, Button, Switch } from "rmwc";
 import MainNav from '../../MainNav'
 import { CREATE_COMPANY } from '../../api'
+import { useNavigate } from 'react-router-dom';
 
 const AddCompany = () => {
-
-    const getBody=(target)=>{
-      return{
-        "company":{
-          "name": target.name.value,
-          "email": target.email.value,
-          "cnpj": target.cnpj.value,
-          "phone":target.phone.value
-        },
-        "address":{
-          "zipcode":target.zipcode.value,
-			    "street":target.street.value,
-          "number":target.number.value,
-          "district":target.district.value,
-          "city":target.city.value,
-          "state":target.state.value,
-          "complement":target.complement.value
-        },
-        "responsible":{
-            "responsible":target.responsible.value,
-            "responsible_phone":target.responsible_phone
-          },
-	      "waiter_rate":target.waiter_rate.value
-      }
-    }
+  const navigate = useNavigate();
+    
     const handleSubmit = async event =>{
       event.preventDefault()
-      const token = window.localStorage.getItem('token')
-      if(!token) throw new Error(`Error: token inválido`)
-      const body = getBody(event.target)
-      //const {url, options} = CREATE_COMPANY(token, body)
-      //const response = await fetch(url, options)
-      //if(!response) throw new Error(`Error: ${response.statusText}`)
-      //const {company} = await response.json() 
-      console.log(body)     
+      try {
+        const token = window.localStorage.getItem('token')
+        if(!token) throw new Error(`Error: token inválido`)
+        const {url, options} = CREATE_COMPANY(token, event.target)
+        const response = await fetch(url, options)
+        console.log(response)
+        if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+        navigate('/companies')
+        //const {company} = await response.json() 
+      } catch (error) {
+        console.log(error)
+      } 
     }
 
     return (
