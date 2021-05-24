@@ -40,6 +40,22 @@ export function USER_GET(token) {
   };
 }
 
+export function GET_USERS(token, paginate, search=null){
+  let url = `${API_URL}admin/user?page=${paginate.page}&limit=${paginate.perPage}`
+    if(search){
+      url+=search
+    }
+  return{
+    url:url,
+    options:{
+      method:'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      }
+    }
+  }
+}
 export function CREATE_COMPANY(token, target){
     
     const data = {}

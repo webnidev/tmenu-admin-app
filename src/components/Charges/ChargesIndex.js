@@ -1,6 +1,5 @@
 import React from 'react'
 import MainNav from '../../MainNav'
-import DialogIndex  from '../Dialog/DialogIndex'
 import { 
   Typography,
   Grid,
@@ -22,43 +21,29 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogButton,
-  DialogQueue
+  DialogButton
 } from "rmwc";
-import { createDialogQueue } from '@rmwc/dialog';
 import { GET_BILLINGS, SEND_BILLING, UPDATE_BILLING } from '../../api';
-
 
 
 const ChargesIndex = () => {
   const [data, setData] = React.useState([])
   const [showperiod, setShowperiod] = React.useState(false)
   const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
-  const [start, setStart] = React.useState(false)
+  const [dialog, setDialog] = React.useState(false)
   const [id, setId] = React.useState(0)
-  const {dialogs ,prompt} = createDialogQueue()
+  const [urlPayment,setUrlPayment] = React.useState('')
 
   const showDialog = async (event) =>{
     event.preventDefault()
-    
+    setId(event.target.id)
+    console.log(event.target.id)
+    console.log(id)
+
+    setDialog(true)
   }
-     
-/**
- * prompt({ 
-      title:'Informe a url de pagamento:',
-      acceptLabel: 'Enviar',
-      cancelLabel: 'Cancelar',
-      inputProps: { outlined: true } 
-    }).then(res =>{
-      const body = {
-        "billing_id":2,
-        "billing_link":res
-      }
-      handleSendBilling(event, body)
-    }
-    )
- * 
- */
+
+
 
   const getData = async ()=>{
     const token = window.localStorage.getItem('token')
@@ -70,7 +55,7 @@ const ChargesIndex = () => {
       if(!response.ok) throw new Error(`Error: ${response.statusText}`)
       const {billings} = await response.json()
       setData(billings.data)
-      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastPage})
   }
 
   const updateStatus = async event =>{
@@ -95,18 +80,24 @@ const ChargesIndex = () => {
     console.log(event.target.value)
   }
 
-  const handleSendBilling = async (event, body) =>{
+  const handleSendBilling = async (event) =>{
     event.preventDefault()
     try {
-    const  token = window.localStorage.getItem('token') 
-    const {url, options} = SEND_BILLING(token,body)
-    const response = await fetch(url, options)
-    //const {billing} = await response.json()
-    if(response.ok){
-      //window.location.reload()
-    }
+      const body = {billing_id:id,billing_link:event.target.urlPayment.value }
+      const  token = window.localStorage.getItem('token') 
+      const {url, options} = SEND_BILLING(token,body)
+      console.log(options.body)
+      const response = await fetch(url, options)
+      const {billing} = await response.json()
+      if(response.ok){
+        setUrlPayment('')
+        window.location.reload()
+      }
     } catch (error) {
       console.log(error)
+    }
+    finally{
+      
     }
   }
 
@@ -164,14 +155,35 @@ const ChargesIndex = () => {
   React.useEffect(()=>{
     getData()
   }, [])
- React.useEffect(()=>{
-   showDialog()
- }, start)
 
     return (
         <>
+        <Dialog 
+          open={dialog}
+          onClose={evt => {
+            console.log(evt.detail.action);
+            console.log()
+            setDialog(false);
+            
+          }}
+          onClosed={evt =>{
+            setUrlPayment('')
+            console.log(evt.detail.action)
+          } }
+          >
+          <DialogTitle>Dialog Title</DialogTitle>
+          <form onSubmit={handleSendBilling}>
+          <DialogContent>
+            <TextField  outlined  className={"CustomInputSearch"} name="urlPayment" value={urlPayment} onChange={({target})=>setUrlPayment(target.value)} />  
+          </DialogContent>
+          <DialogActions>
+            <DialogButton action="accept" isDefaultAction>
+              Enviar
+            </DialogButton>
+          </DialogActions>
+          </form>
+        </Dialog>
         <MainNav/>
-        <DialogIndex start={start} id={id}/>
           <div className={"PageContainer"}>
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Cobranças</Typography></h1>             
@@ -232,10 +244,10 @@ const ChargesIndex = () => {
                       <DataTableCell alignEnd>{billing.cards}</DataTableCell>
                       <DataTableCell alignEnd className={"strong"}>R$ {billing.value}</DataTableCell>
                        <td>    
-                          
+                       
                             
                         <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                          <MenuItem id={billing.name}  onClick={showDialog}>
+                          <MenuItem id="4"  onClick={showDialog}>
                             Enviar               
                           </MenuItem>
                           <MenuItem id={billing.name}  value="1" onClick={updateStatus}>
@@ -245,7 +257,6 @@ const ChargesIndex = () => {
                           Marcar como Cancelada
                           </MenuItem>                            
                         </SimpleMenu>
-                        <DialogQueue dialogs={dialogs} />
                       </td>
                       <DataTableCell alignEnd><Button label="Fatura" icon="link" outlined type="button" /></DataTableCell>
                       <DataTableCell alignEnd>

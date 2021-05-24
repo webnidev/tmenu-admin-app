@@ -67,3 +67,10 @@
                           </Dialog>             
 
                           <MenuItem onClick={() => setDialog(true)}>Enviar</MenuItem>
+
+
+
+{ paginate.page > 1 && <p>&laquo;</p>} 
+            <p onClick={}>1</p>
+            <p>2</p>
+            <p>&raquo;</p>

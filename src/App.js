@@ -15,6 +15,7 @@ import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import  ProtectedRoute  from './Helper/ProtectedRoute'
 import RedirectToHome from './Helper/RedirectToHome'
 import { UserStorage } from './UserContext';
+import { UsersStorage } from './UsersContext';
 const App = () => {
   return (
     <BrowserRouter> 
@@ -27,7 +28,9 @@ const App = () => {
           <ProtectedRoute path="/add-company" element={ <AddCompany/>} />
           <ProtectedRoute path="/charges" element={ <ChargesIndex/>} />
           <ProtectedRoute path="/billing" element={ <BillingIndex/>} />
+          <UsersStorage>
           <ProtectedRoute path="/users" element={ <UsersIndex/> } /> 
+          </UsersStorage>
           <ProtectedRoute path="/my-account" element={ <AccountIndex/>} />
           <ProtectedRoute path="/tax-rules" element={ <TaxRulesIndex/>} />
           <ProtectedRoute path="/integrations" element={ <IntegrationsIndex/>} />

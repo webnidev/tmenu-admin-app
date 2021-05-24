@@ -297,3 +297,21 @@ div.CustomContainer.mdc-layout-grid div.mdc-layout-grid__inner {
 .TabelaPadrao th.rmwc-data-table__cell.mdc-data-table__header-cell {
   font-weight: bold;
 }
+.center{
+  text-align: center;
+}
+.pagination{
+  display: inline-block;
+}
+.pagination p {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pagination p.active{
+  background-color: black;
+  color: white;
+  border-radius:5px;
+}
