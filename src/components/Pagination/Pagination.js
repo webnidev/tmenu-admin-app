@@ -1,8 +1,7 @@
 import React from 'react'
 import { UsersContext } from '../../UsersContext';
 
-const Pagination =()=>{
-    const { paginate, paginateUpdate } = React.useContext(UsersContext);
+const Pagination =({paginate, paginateUpdate})=>{
     const pagination = []
     for(let page = 1; page <= paginate.lastpage; page++){
         pagination.push(page)

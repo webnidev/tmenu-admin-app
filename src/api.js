@@ -56,6 +56,21 @@ export function GET_USERS(token, paginate, search=null){
     }
   }
 }
+
+
+export function CREATE_USER(token, body){
+  return{
+    url:`${API_URL}admin/user`,
+    options:{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body:JSON.stringify(body)
+    }
+  }
+}
 export function CREATE_COMPANY(token, target){
     
     const data = {}

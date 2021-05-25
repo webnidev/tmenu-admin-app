@@ -3,6 +3,7 @@ import MainNav from "./MainNav";
 import Home from "./components/Home";
 import CompaniesIndex from "./components/Companies/CompaniesIndex";
 import AddCompany from "./components/Companies/AddCompany";
+import AddUser from "./components/Users/AddUser";
 import ChargesIndex from "./components/Charges/ChargesIndex";
 import BillingIndex from "./components/Billing/BillingIndex";
 import UsersIndex from "./components/Users/UsersIndex";
@@ -26,6 +27,7 @@ const App = () => {
           <ProtectedRoute path="/" element={<Home />} end />
           <ProtectedRoute path="/companies" element={ <CompaniesIndex/>} />
           <ProtectedRoute path="/add-company" element={ <AddCompany/>} />
+          <ProtectedRoute path="/add-user" element={ <AddUser/>} />
           <ProtectedRoute path="/charges" element={ <ChargesIndex/>} />
           <ProtectedRoute path="/billing" element={ <BillingIndex/>} />
           <UsersStorage>

@@ -15,15 +15,24 @@ import {
   Badge,
   SimpleMenu,
   MenuItem,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogButton
  } from "rmwc";
 import MainNav from '../../MainNav'
 import Pagination from '../Pagination/Pagination'
 import { GET_USERS } from '../../api';
 import { UsersContext } from '../../UsersContext';
 const UsersIndex = () => {
-  const { getData, paginate, data } = React.useContext(UsersContext);
-
- 
+  const context = React.useContext(UsersContext)
+  const { getData, paginate, data, paginateUpdate } = React.useContext(UsersContext);
+  const [open, setOpen]= React.useState(false)
+ const addUser = ()=>{
+  window.location.href = "/add-user";
+ }
     return (
         <>
         <MainNav/>
@@ -31,6 +40,19 @@ const UsersIndex = () => {
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Usuários</Typography></h1>             
           </div>
+          <Grid className={"CustomContainer"}>
+            <GridRow>
+                    <GridCell span={8}>
+                      <Button onClick={addUser} className={"BtnDefaultTmenu"} label="Cadastrar Novo" icon="add" />     
+                    </GridCell>                    
+                    <GridCell span={4}>
+                        <form onSubmit={""}>                      
+                        <TextField className={"CustomInputSearch"} name="name" outlined label="Buscar por Nome ou CNPJ..." />
+                        <Button label="Pesquisar" outlined icon="search" className={"BtnDefaultSearch"} type="submit"/>
+                        </form>
+                    </GridCell>
+                </GridRow>       
+            </Grid>
           <Grid className={"CustomContainer"}>
           <GridRow>
             <GridCell>
@@ -69,7 +91,7 @@ const UsersIndex = () => {
             </GridCell>
           </GridRow>
           <GridRow>
-          <Pagination />
+          <Pagination paginate={paginate} paginateUpdate={paginateUpdate}/>
           </GridRow>
           </Grid>
           
