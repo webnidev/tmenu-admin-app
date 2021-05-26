@@ -7,11 +7,11 @@ const useForm = () => {
         setValue(target.value)
     }
 
-    return(
+    return{
         value,
         setValue,
         onChange
-    )
+    }
 }
 
 
