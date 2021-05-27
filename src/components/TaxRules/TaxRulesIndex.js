@@ -55,16 +55,31 @@ const TaxRulesIndex = () => {
           </div>
           <Grid className={"CustomContainer"}>
               <GridRow>
-                    <GridCell span={8}>
-                      <Button onClick={()=>setAdd(true)} className={"BtnDefaultTmenu"} label="Cadastrar Taxa" icon="add" />     
+                    <GridCell span={6}>
+                      <Button onClick={()=>setAdd(!add)} className={"BtnDefaultTmenu"} label="Cadastrar Taxa" icon="add" />     
                     </GridCell>                    
                 </GridRow>
+          </Grid>      
+                { add && 
+                <form>
+              <Grid>    
                 <GridRow>
-                  <GridCell>
-                    <form></form>
+                  <GridCell span={8}>
+                    
+                      <GridCell span={4}>
+                        <TextField fullwidth placeholder="Type" name="type" />
+                      </GridCell>
+                      <GridCell span={2}>
+                        <TextField fullwidth placeholder="Valor" name="value" />
+                      </GridCell>
+
+                    
                   </GridCell>
-                </GridRow>       
-            </Grid>
+                </GridRow>
+                </Grid>
+                </form>
+                }       
+            
           <Grid className={"CustomContainer"}>
             <GridRow>
               <GridCell>
