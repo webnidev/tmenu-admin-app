@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import { Grid, GridCell, Card, Typography, Icon } from "rmwc";
+import React from 'react';
+import { Grid, GridCell, Card, Typography, Icon,CircularProgress  } from "rmwc";
 import { GET_STATISTIC_COMPAMPANIES } from '../api'
 import MainNav from '../MainNav'
 const Home = () => {
-  const [data, setData] = useState([{companies:''},{cards:''},{itens:''}])
+  const [data, setData] = React.useState([{companies:''},{cards:''},{itens:''}])
+  const [loaded, setLoaded] = React.useState(true)
   const getData = async ()=>{
    try {
     const token = window.localStorage.getItem('token')
@@ -16,19 +17,27 @@ const Home = () => {
    } catch (error) {
     console.log(error)     
    }
+   finally{
+     setLoaded(false)
+   }
   }
 
-  useEffect(()=>{
+  React.useEffect(()=>{
     getData()
   },[])
     return (
-        <>
+      <>
           <MainNav/>
           <div className={"PageContainer"}>
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">PAINEL</Typography></h1>             
           </div>
-          <Grid className={"CardsHome"} z={1}>
+          {loaded &&
+           <div className={"loading"}> 
+          <CircularProgress size={125} />
+          </div>
+          }
+          { !loaded && <Grid className={"CardsHome"} z={1}>
               <GridCell>
                 <Card>
                   <Icon icon={{ icon: 'view_comfy', size: 'xlarge' }} style={{ color: '#16A104'}} />
@@ -50,7 +59,7 @@ const Home = () => {
                   <span className={"CardsHomeValue"} style={{ color: '#FF144F'}}>{data[2].itens}</span>
                 </Card>
               </GridCell>            
-            </Grid>
+            </Grid>}
         </div>
         </>
     )

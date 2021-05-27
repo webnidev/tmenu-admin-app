@@ -70,7 +70,7 @@ const ChargesIndex = () => {
         throw new Error(`Error: ${response.statusText}`)
       }
       if(response.ok){
-        console.log("ok")
+        window.location.reload()
       }
     } catch (error) {
       console.log(error)
@@ -247,13 +247,13 @@ const ChargesIndex = () => {
                        
                             
                         <SimpleMenu handle={<Button label="Selecione" icon="expand_more" />}>
-                          <MenuItem id="4"  onClick={showDialog}>
+                          <MenuItem id={billing.id}  onClick={showDialog}>
                             Enviar               
                           </MenuItem>
-                          <MenuItem id={billing.name}  value="1" onClick={updateStatus}>
+                          <MenuItem id={billing.id}  value="1" onClick={updateStatus}>
                           Marcar como Paga
                           </MenuItem>
-                          <MenuItem id={billing.name}  value="0" onClick={updateStatus}>
+                          <MenuItem id={billing.id}  value="0" onClick={updateStatus}>
                           Marcar como Cancelada
                           </MenuItem>                            
                         </SimpleMenu>

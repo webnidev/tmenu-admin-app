@@ -315,3 +315,8 @@ div.CustomContainer.mdc-layout-grid div.mdc-layout-grid__inner {
   color: white;
   border-radius:5px;
 }
+
+.loading{
+  align-items: center;
+  align-content: center;
+}

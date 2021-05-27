@@ -30,7 +30,7 @@ const UsersIndex = () => {
   const context = React.useContext(UsersContext)
   const { getData, paginate, data, paginateUpdate,setPaginate, setData } = React.useContext(UsersContext);
   const [open, setOpen]= React.useState(false)
- const addUser = ()=>{
+  const addUser = ()=>{
   window.location.href = "/add-user";
  }
   const searchUser = async event =>{

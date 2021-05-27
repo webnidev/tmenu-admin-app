@@ -57,6 +57,32 @@ export function GET_USERS(token, paginate, search=null){
   }
 }
 
+export function GET_USER(token){
+  return{
+    url: API_URL+'admin/profile',
+    options:{
+      method:'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      }
+    }
+  }
+}
+
+export function UPDATE_USER(token, data){
+  return{
+    url:`${API_URL}admin/user/${data.id}`,
+    options:{
+      method: 'PUT',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      },
+      body:JSON.stringify(data)
+    }
+  }
+}
 
 export function CREATE_USER(token, body){
   return{
@@ -195,7 +221,7 @@ export function SEND_BILLING(token, body){
 }
 
 export function UPDATE_BILLING(token, id, status){
-  const url = `${API_URL}admin/set-paied/2`
+  const url = `${API_URL}admin/set-paied/${id}`
   return{
     url:url,
     options:{
