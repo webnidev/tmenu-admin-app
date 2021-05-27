@@ -55,7 +55,7 @@ export const UsersStorage = ({children})=>{
 
     return(
         <UsersContext.Provider
-        value={{data, getData, paginate, paginateUpdate}}
+        value={{data, setData, setPaginate, getData, paginate, paginateUpdate}}
         >
             {children}
         </UsersContext.Provider>

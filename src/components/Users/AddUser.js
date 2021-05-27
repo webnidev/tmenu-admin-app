@@ -19,6 +19,9 @@ import useForm from '../../Hooks/useForm'
 const AddUser =()=>{
     const [data, setData] = React.useState([])
     const [companyList, setCompanyList] = React.useState([])
+    const [id, setId] = React.useState(0)
+    const [value, setValue] = React.useState('')
+    const [selected, setSelected] = React.useState(true)
     const navigate = useNavigate();
     const comp = useForm()
     const getData = async () =>{
@@ -37,6 +40,13 @@ const AddUser =()=>{
         }
     }
 
+    const handleValue = async event =>{
+        //console.log(event.target.innerText)
+        setId(event.target.id)
+        setValue(event.target.innerText)
+        setSelected(false)
+        setCompanyList([])
+    }
 
     const updateList = async =>{
         setCompanyList(filterCompany(comp.value))
@@ -44,6 +54,7 @@ const AddUser =()=>{
     }
 
     const filterCompany =  (value) =>{
+        if(value == '') return []
         return data.filter( el => {
             return  el.name.toLowerCase().indexOf( value.toLowerCase()) > -1
         })
@@ -60,7 +71,7 @@ const AddUser =()=>{
                 cpf:event.target.cpf.value,
                 phone:event.target.phone.value,
                 role:event.target.role.value,
-                company_id:event.target.company_id.value
+                company_id:id
             }
             const token = window.localStorage.getItem('token')
             if(!token) throw new Error('Error: Token inválido')
@@ -116,11 +127,15 @@ const AddUser =()=>{
                             </Select>
                         </GridCell>
                         <GridCell span={6}> 
-                        <TextField fullwidth placeholder="Empresa" name="companies" {...comp} />
+                        { selected && <TextField fullwidth placeholder="Empresa" name="companies"  {...comp} /> }
+                        { !selected &&   <TextField fullwidth placeholder="Empresa" name="company_id"  id={id} value={value}/>
+                        }
                         <ul style={{"list-style":"none"}}>
                             {companyList.map(company=>{
                                 return(
-                                    <li>{company}</li>
+                                    <li key={company.id} id={company.id} onClick={handleValue} style={{"cursor":"pointer"}}>
+                                        {company.name}
+                                    </li>
                                 )
                             })
                             }
