@@ -235,4 +235,16 @@ export function UPDATE_BILLING(token, id, status){
   }
 }
 
+export function GET_PLANS(token){
+  return{
+    url: API_URL+"admin/plan",
+    options:{
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      }
+    }
+  }
+}
 
