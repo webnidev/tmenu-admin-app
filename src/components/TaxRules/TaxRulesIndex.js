@@ -20,7 +20,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogButton
+  DialogButton,
+  CircularProgress
 } from "rmwc";
 import MainNav from '../../MainNav';
 import { GET_PLANS } from '../../api';
@@ -28,6 +29,7 @@ import { GET_PLANS } from '../../api';
 const TaxRulesIndex = () => {
   const [plans, setPlans] = React.useState([])
   const [add, setAdd] = React.useState(false)
+  const [loaded, setLoaded] = React.useState(true)
   const getPlans =async ()=>{
     try {
       const token = window.localStorage.getItem('token')
@@ -40,6 +42,9 @@ const TaxRulesIndex = () => {
     } catch (error) {
       console.log(error)
     }
+    finally{
+      setLoaded(false)
+    }
   }
 
   React.useEffect(()=>{
@@ -47,36 +52,49 @@ const TaxRulesIndex = () => {
   },[])
 
     return (
-        <>
+      <>
+        
           <MainNav />
           <div className={"PageContainer"}>
-          <div className={"PageTitle"}>        
-            <h1><Typography use="headline1">Gestão de Taxas</Typography></h1>             
-          </div>
+            <div className={"PageTitle"}>        
+              <h1><Typography use="headline1">Gestão de Taxas</Typography></h1>             
+            </div>
+            
+          
+            {loaded && <div className={"loading"}>  <CircularProgress size={125} /></div>}
+          
+            
+          
+        { !loaded && 
+          <div>
           <Grid className={"CustomContainer"}>
               <GridRow>
                     <GridCell span={6}>
                       <Button onClick={()=>setAdd(!add)} className={"BtnDefaultTmenu"} label="Cadastrar Taxa" icon="add" />     
                     </GridCell>                    
                 </GridRow>
-          </Grid>      
+          </Grid>
+
                 { add && 
                 <form>
+                  <div className="formContainer">
               <Grid>    
                 <GridRow>
-                  <GridCell span={8}>
+                  <GridCell span={12}>
                     
-                      <GridCell span={4}>
+                      <GridCell span={3}>
                         <TextField fullwidth placeholder="Type" name="type" />
                       </GridCell>
-                      <GridCell span={2}>
+                      <GridCell span={3}>
                         <TextField fullwidth placeholder="Valor" name="value" />
                       </GridCell>
+                      
 
                     
                   </GridCell>
                 </GridRow>
                 </Grid>
+                </div>
                 </form>
                 }       
             
@@ -114,8 +132,10 @@ const TaxRulesIndex = () => {
               </GridCell>
             </GridRow>
           </Grid>
-        </div>
-        </>
+          </div>
+          }
+        </div> 
+      </>
     )
 }
 

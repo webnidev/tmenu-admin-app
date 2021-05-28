@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, TextField, Grid, GridRow, GridCell, Button, SnackbarAction, Snackbar } from "rmwc";
+import { Typography, TextField, Grid, GridRow, GridCell, Button, SnackbarAction, Snackbar, CircularProgress } from "rmwc";
 import { GET_USER, UPDATE_USER } from '../../api';
 import MainNav from '../../MainNav';
 
@@ -14,6 +14,7 @@ const AccountIndex = () => {
   const [cpf, setCpf] = React.useState('')
   const [phone, setPhone] = React.useState('')
   const [created_at, setCreatedAt] = React.useState('')
+  const [loaded, setLoaded] = React.useState(true)
   const getUser = async ()=>{
     try {
       const token = window.localStorage.getItem('token')
@@ -32,6 +33,8 @@ const AccountIndex = () => {
       setCreatedAt(user.created_at)
     } catch (error) {
       console.log(error)
+    }finally{
+      setLoaded(false)
     }
   }
   const handleUpdate = async event =>{
@@ -74,6 +77,14 @@ const AccountIndex = () => {
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Minha Conta </Typography>  </h1>             
           </div>
+
+          {loaded &&
+           <div className={"loading"}> 
+          <CircularProgress size={125} />
+          </div>
+          }
+          { !loaded && 
+          <div>
           <form onSubmit={handleUpdate}>
           <div className="formContainer">
           <Grid>
@@ -105,7 +116,8 @@ const AccountIndex = () => {
             </GridRow>
           </Grid>
           </div>
-          </form>
+          </form></div>
+          }
         </div>
         <Snackbar
         open={open}
@@ -119,6 +131,9 @@ const AccountIndex = () => {
           />
         }
       />
+      
+      
+    
         </>
     )
 }

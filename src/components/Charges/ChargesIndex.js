@@ -21,18 +21,20 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogButton
+  DialogButton,
+  CircularProgress
 } from "rmwc";
 import { GET_BILLINGS, SEND_BILLING, UPDATE_BILLING } from '../../api';
-
+import Pagination from '../Pagination/Pagination'
 
 const ChargesIndex = () => {
   const [data, setData] = React.useState([])
   const [showperiod, setShowperiod] = React.useState(false)
-  const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
+  const [paginate, setPaginate] = React.useState({total:0, perPage:10, page:1, lastpage:0})
   const [dialog, setDialog] = React.useState(false)
   const [id, setId] = React.useState(0)
   const [urlPayment,setUrlPayment] = React.useState('')
+  const [loaded, setLoaded] = React.useState(true)
 
   const showDialog = async (event) =>{
     event.preventDefault()
@@ -46,16 +48,22 @@ const ChargesIndex = () => {
 
 
   const getData = async ()=>{
-    const token = window.localStorage.getItem('token')
-    if(!token){
-      throw new Error(`Error: Token inválido`)
+    try {
+      const token = window.localStorage.getItem('token')
+      if(!token){
+        throw new Error(`Error: Token inválido`)
+      }
+        const { url, options } = GET_BILLINGS(token,paginate)
+        const response = await fetch(url, options)
+        if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+        const {billings} = await response.json()
+        setData(billings.data)
+        setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastPage})
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setLoaded(false)
     }
-      const { url, options } = GET_BILLINGS(token,paginate)
-      const response = await fetch(url, options)
-      if(!response.ok) throw new Error(`Error: ${response.statusText}`)
-      const {billings} = await response.json()
-      setData(billings.data)
-      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastPage})
   }
 
   const updateStatus = async event =>{
@@ -152,6 +160,31 @@ const ChargesIndex = () => {
     }
   }
 
+  const paginateUpdate =async event =>{
+    try {
+        const token = window.localStorage.getItem('token')
+        
+            console.log(event.target.id)
+        
+        //console.log(event.target.innerText)
+        paginate.page=event.target.id
+
+        setPaginate(paginate)
+        console.log(paginate)
+        if(!token){
+            throw new Error(`Error: Token inválido`)
+        }
+        const {url, options} = GET_BILLINGS(token, paginate)
+        const response = await fetch(url, options)
+        if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+        const {billings} = await response.json()
+        setData(billings.data)
+        
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
   React.useEffect(()=>{
     getData()
   }, [])
@@ -171,7 +204,7 @@ const ChargesIndex = () => {
             console.log(evt.detail.action)
           } }
           >
-          <DialogTitle>Dialog Title</DialogTitle>
+          <DialogTitle>Informe a url</DialogTitle>
           <form onSubmit={handleSendBilling}>
           <DialogContent>
             <TextField  outlined  className={"CustomInputSearch"} name="urlPayment" value={urlPayment} onChange={({target})=>setUrlPayment(target.value)} />  
@@ -188,7 +221,12 @@ const ChargesIndex = () => {
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Cobranças</Typography></h1>             
           </div>
-          
+            {loaded &&
+            <div className={"loading"}> 
+              <CircularProgress size={125} />
+            </div>
+            }
+          { !loaded && <div>
             <Grid className={"CustomContainer"}>
             <GridRow>
                     <GridCell span={8}>                     
@@ -284,8 +322,12 @@ const ChargesIndex = () => {
                 </DataTable>
                 </GridCell>
                 </GridRow>
+                <GridRow>
+                  {/*<Pagination paginate={paginate} paginateUpdate={paginateUpdate}/>*/}
+                </GridRow>
             </Grid>
-
+            </div>
+                     }
 
         </div> 
         </>

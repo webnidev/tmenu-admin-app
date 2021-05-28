@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, GridCell, Card, Typography, Icon,CircularProgress  } from "rmwc";
+import { Grid, GridCell, Card, Typography, Icon, CircularProgress  } from "rmwc";
 import { GET_STATISTIC_COMPAMPANIES } from '../api'
 import MainNav from '../MainNav'
 const Home = () => {

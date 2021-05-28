@@ -317,6 +317,6 @@ div.CustomContainer.mdc-layout-grid div.mdc-layout-grid__inner {
 }
 
 .loading{
-  align-items: center;
-  align-content: center;
+  margin-left: 35rem;
+  margin-top: 13rem;
 }

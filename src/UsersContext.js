@@ -6,6 +6,7 @@ export const UsersContext = React.createContext();
 export const UsersStorage = ({children})=>{
      const [data, setData] = React.useState([])
      const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastpage:0})
+     const [loaded, setLoaded] =React.useState(true)
      const getData = async ()=>{
         try{
           const token = window.localStorage.getItem('token')
@@ -21,6 +22,8 @@ export const UsersStorage = ({children})=>{
     
         }catch(error){
             console.log(error)
+        }finally{
+          setLoaded(false)
         }
         
       }
@@ -55,7 +58,7 @@ export const UsersStorage = ({children})=>{
 
     return(
         <UsersContext.Provider
-        value={{data, setData, setPaginate, getData, paginate, paginateUpdate}}
+        value={{data, setData, setPaginate, getData, paginate, paginateUpdate, loaded}}
         >
             {children}
         </UsersContext.Provider>

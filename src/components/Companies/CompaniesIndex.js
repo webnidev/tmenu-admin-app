@@ -15,8 +15,8 @@ import { Grid, GridCell, GridRow,
   MenuItem, 
   Badge,
   IconButton,
-  Icon
-
+  Icon,
+  CircularProgress
 } from "rmwc";
 
 import { GET_COMPANIES, UPDATE_COMPANY } from '../../api';
@@ -31,7 +31,7 @@ function cadastrarNovo(){
 //const [company, setCompany] = React.useState([])
 const [data, setData] = React.useState([])
 const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastPage:0})
-
+const [loaded, setLoaded] = React.useState(true)
 const getData = async ()=>{
   try {
     const token = window.localStorage.getItem('token')
@@ -46,6 +46,9 @@ const getData = async ()=>{
     
   } catch (error) {
     console.log(error)
+  }
+  finally{
+    setLoaded(false)
   }
   
  
@@ -88,7 +91,14 @@ React.useEffect(()=>{
      <div className={"PageContainer"}>
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Estabelecimentos</Typography></h1>             
-          </div>        
+          </div>
+          {loaded &&
+           <div className={"loading"}> 
+          <CircularProgress size={125} />
+          </div>
+          }
+          { !loaded &&
+          <div>        
           <Grid className={"CustomContainer"}>
             <GridRow>
                     <GridCell span={8}>
@@ -146,7 +156,8 @@ React.useEffect(()=>{
                 </GridCell>
                 </GridRow>
             </Grid>
-
+            </div>
+          }
 
         </div>   
       

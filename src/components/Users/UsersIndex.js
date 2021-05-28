@@ -20,7 +20,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogButton
+  DialogButton,
+  CircularProgress
  } from "rmwc";
 import MainNav from '../../MainNav'
 import Pagination from '../Pagination/Pagination'
@@ -28,7 +29,7 @@ import { GET_USERS } from '../../api';
 import { UsersContext } from '../../UsersContext';
 const UsersIndex = () => {
   const context = React.useContext(UsersContext)
-  const { getData, paginate, data, paginateUpdate,setPaginate, setData } = React.useContext(UsersContext);
+  const { getData, paginate, data, paginateUpdate,setPaginate, setData, loaded } = React.useContext(UsersContext);
   const [open, setOpen]= React.useState(false)
   const addUser = ()=>{
   window.location.href = "/add-user";
@@ -57,6 +58,11 @@ const UsersIndex = () => {
           <div className={"PageTitle"}>        
             <h1><Typography use="headline1">Usuários</Typography></h1>             
           </div>
+          {loaded &&
+           <div className={"loading"}> 
+          <CircularProgress size={125} />
+          </div>
+          }{ !loaded && <div>
           <Grid className={"CustomContainer"}>
             <GridRow>
                     <GridCell span={8}>
@@ -111,7 +117,7 @@ const UsersIndex = () => {
           <Pagination paginate={paginate} paginateUpdate={paginateUpdate}/>
           </GridRow>
           </Grid>
-          
+                    </div>}
         </div>
         
         </>

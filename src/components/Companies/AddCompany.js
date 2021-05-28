@@ -60,10 +60,6 @@ const AddCompany = () => {
                       <GridCell span={6}><TextField fullwidth placeholder="Celular do Responsável Contratante" name="responsible_phone" /></GridCell>  
                   </GridRow>
                   <GridRow>
-                      <GridCell span={6}><TextField fullwidth placeholder="Senha" name="password" type="password"/></GridCell>
-                      <GridCell span={6}><TextField fullwidth placeholder="Confirme senha" name="password_confirm" type="password"/></GridCell>  
-                  </GridRow>
-                  <GridRow>
                     <GridCell span={12}> 
                     <Switch defaultChecked label="Ativar retirada de R$1 nos 10% do garçom em cada comanda fechada" name="waiter_rate" />  
                     </GridCell>
