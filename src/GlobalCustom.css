@@ -320,3 +320,13 @@ div.CustomContainer.mdc-layout-grid div.mdc-layout-grid__inner {
   margin-left: 35rem;
   margin-top: 13rem;
 }
+
+
+.expoContainer {
+  margin: 2%;
+  padding: 1% 2% 2% 2%;
+  border-radius: 5px;
+  width: 900px;
+  background: white;
+  max-width: 100%;
+}

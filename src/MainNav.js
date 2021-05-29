@@ -47,9 +47,9 @@ const MainNav = () => {
               <ListItem tag={Link} to="/charges">
                 <ListItemGraphic icon="credit_card" /> Cobranças
               </ListItem>
-              <ListItem tag={Link} to="/billing">
+              {/*<ListItem tag={Link} to="/billing">
                 <ListItemGraphic icon="attach_money" /> Faturamento
-              </ListItem>
+              </ListItem>*/}
               <ListItem tag={Link} to="/users">
                 <ListItemGraphic icon="supervisor_account" /> Usuários
               </ListItem>                           
@@ -60,9 +60,9 @@ const MainNav = () => {
               <ListItem tag={Link} to="/tax-rules">
                 <ListItemGraphic icon="tune" /> Gestão de Taxas
               </ListItem>
-              <ListItem tag={Link} to="/integrations">
+              {/*<ListItem tag={Link} to="/integrations">
                 <ListItemGraphic icon="sync_alt" /> Integrações
-              </ListItem>
+            </ListItem>*/}
               <hr className={"Divider"} />              
               <ListItem tag={Link} to="/logout" >
                 <ListItemGraphic icon="exit_to_app" /> Sair

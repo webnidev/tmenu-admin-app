@@ -1,9 +1,11 @@
 import React from 'react';
 import { Typography, TextField, Grid, GridRow, GridCell, Button } from "rmwc";
 import { UserContext } from '../../UserContext';
-
+import useForm from '../../Hooks/useForm'
 const Login = () => {
-  const { userLogin } = React.useContext(UserContext);
+  const email = useForm()
+  const password = useForm()
+  const { userLogin, error } = React.useContext(UserContext);
   async function handleSubimit(event){  
     event.preventDefault()  
       userLogin({email: event.target.email.value, password:event.target.password.value})
@@ -17,10 +19,16 @@ const Login = () => {
       <form className="formContainer" onSubmit={handleSubimit}>
         <Grid>
           <GridRow>
-            <GridCell span={12}><TextField type="email" name="email" fullwidth placeholder="Email" /></GridCell>
+            <GridCell span={12}>
+              <TextField type="email" name="email" fullwidth placeholder="Email" {...email} />
+              {error}
+              </GridCell>
           </GridRow>
           <GridRow>
-            <GridCell span={12}><TextField type="password" name="password" fullwidth placeholder="Password" /></GridCell>
+            <GridCell span={12}>
+              <TextField type="password" name="password" fullwidth placeholder="Password" {...password} />
+              {error}
+              </GridCell>
           </GridRow>
           <GridRow>
             <GridCell span={12}><Button type="submit" className={"BtnDefaultTmenu"} label="Entrar" icon="/login.png" /> </GridCell>

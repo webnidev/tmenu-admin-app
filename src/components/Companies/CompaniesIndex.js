@@ -20,7 +20,7 @@ import { Grid, GridCell, GridRow,
 } from "rmwc";
 
 import { GET_COMPANIES, UPDATE_COMPANY } from '../../api';
-
+import Pagination from '../Pagination/Pagination'
 
 const CompaniesIndex = () => {
 
@@ -30,7 +30,7 @@ function cadastrarNovo(){
 //   const [status, setStatus] = React.useState(false);
 //const [company, setCompany] = React.useState([])
 const [data, setData] = React.useState([])
-const [paginate, setPaginate] = React.useState({total:0, perPage:5, page:1, lastPage:0})
+const [paginate, setPaginate] = React.useState({total:0, perPage:10, page:1, lastpage:0})
 const [loaded, setLoaded] = React.useState(true)
 const getData = async ()=>{
   try {
@@ -41,7 +41,7 @@ const getData = async ()=>{
     if(!response.ok) throw new Error(`Error: ${response.statusText}`)
     const {company} = await response.json()
     setData(company.data)
-    setPaginate({total:company.total, perPage:company.perPage, page:company.page, lastPage:company.lastpage})
+    setPaginate({total:company.total, perPage:company.perPage, page:company.page, lastpage:company.lastPage})
   }
     
   } catch (error) {
@@ -55,14 +55,14 @@ const getData = async ()=>{
 }
 const handleSubimit = async event =>{
   event.preventDefault()
-  const search = `&name=${event.target.name.value}`
+  const search = `${event.target.name.value}`
   const token = window.localStorage.getItem('token')
   const {url, options} = GET_COMPANIES(token, paginate, search)
   const response = await fetch(url, options)
   if(!response.ok) throw new Error(`Error: ${response.statusText}`)
   const {company} = await response.json()
   setData(company.data)
-  setPaginate({total:company.total, perPage:company.perPage, page:company.page, lastPage:company.lastPage})
+  setPaginate({total:company.total, perPage:company.perPage, page:company.page, lastpage:company.lastPage})
 }
 const updateStatus = async event =>{
   event.preventDefault()
@@ -78,6 +78,24 @@ const updateStatus = async event =>{
   }
 }
 
+const paginateUpdate =async event =>{
+  try {
+      const token = window.localStorage.getItem('token')
+      paginate.page=event.target.id
+      setPaginate(paginate)
+      if(!token){
+          throw new Error(`Error: Token inválido`)
+      }
+      const {url, options} = GET_COMPANIES(token, paginate)
+      const response = await fetch(url, options)
+      if(!response.ok) throw new Error(`Error: ${response.statusText}`)
+      const {company} = await response.json()
+      setData(company.data)
+      
+  } catch (error) {
+      console.log(error)
+  }
+}
 
 
 React.useEffect(()=>{
@@ -134,11 +152,11 @@ React.useEffect(()=>{
                       { data.map( company =>{
                         return(
                       <DataTableRow key={company.id}>
-                        <DataTableCell><a href="/">{company.name}</a></DataTableCell>
+                        <DataTableCell><a href={`/company/${company.id}`}>{company.name}</a></DataTableCell>
                         <DataTableCell alignEnd>{company.cnpj}</DataTableCell>
                         <DataTableCell alignEnd>{company.phone}</DataTableCell>
                           <SimpleMenu handle={<IconButton icon="zoom_in"/>}>
-                            <MenuItem><Icon icon={{ icon: 'info', size: 'small' }} /> Ver Detalhes</MenuItem>
+                            <MenuItem><Icon icon={{ icon: 'info', size: 'small' }} /><a href={`/company/${company.id}`}> Ver Detalhes</a></MenuItem>
                             <MenuItem><Icon icon={{ icon: 'open_in_new', size: 'small' }} /> Logar</MenuItem>
                           </SimpleMenu> 
                         <DataTableCell alignEnd><Badge className={company.status?"TmenuSuccess":"TmenuDanger"} align="inline" label={company.status?"Ativo":"Inativo"} /></DataTableCell>
@@ -154,6 +172,9 @@ React.useEffect(()=>{
                   </DataTableContent>
                 </DataTable>
                 </GridCell>
+                </GridRow>
+                <GridRow>
+                  <Pagination paginate={paginate} paginateUpdate={paginateUpdate}/>
                 </GridRow>
             </Grid>
             </div>

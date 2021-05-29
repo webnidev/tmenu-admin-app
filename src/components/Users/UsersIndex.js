@@ -45,7 +45,7 @@ const UsersIndex = () => {
       const {users} = await response.json()
       setData(users.data)
       console.log(users.data)
-      setPaginate({total:users.total, perPage:users.perPage, page:users.page, lastPage:users.lastPage})
+      setPaginate({total:users.total, perPage:users.perPage, page:users.page, lastpage:users.lastPage})
     } catch (error) {
       console.log(error)
     }

@@ -41,10 +41,15 @@ export function USER_GET(token) {
 }
 
 export function GET_USERS(token, paginate, search=null){
+  const namex = /[a-zA-z]+/g
   let url = `${API_URL}admin/user?page=${paginate.page}&limit=${paginate.perPage}`
-    if(search){
-      url+=search
+  if(search){
+    if(search.match(namex)){
+      url+=`&name=${search}`
+    }else{
+      url+=`&cpf=${search}`
     }
+  }
   return{
     url:url,
     options:{
@@ -157,9 +162,14 @@ export function GET_STATISTIC_COMPAMPANIES(token){
 }
 
 export function GET_COMPANIES(token, paginate, search=null) {
+  const namex = /[a-zA-z]+/g
   let url = `${API_URL}admin/company?page=${paginate.page}&limit=${paginate.perPage}`
     if(search){
-      url+=search
+      if(search.match(namex)){
+        url+=`&name=${search}`
+      }else{
+        url+=`&cnpj=${search}`
+      }
     }
   return {
     url: url,
@@ -186,11 +196,28 @@ export function GET_COMPANIES(token, paginate, search=null) {
       },
     }
 }
+export function GET_COMPANY(token, id){
+  return{
+    url: `${API_URL}admin/company/${id}`,
+    options:{
+      method:'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      }
+    }
+  }
+}
 
 export function GET_BILLINGS(token, paginate, search=null){
+  const namex = /[a-zA-z]+/g
   let url = `${API_URL}admin/billing?page=${paginate.page}&limit=${paginate.perPage}`
   if(search){
-    url+=search
+    if(search.match(namex)){
+      url+=`&name=${search}`
+    }else{
+      url+=`&cnpj=${search}`
+    }
   }
   return{
     url: url,

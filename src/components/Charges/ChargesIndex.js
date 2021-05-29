@@ -58,7 +58,7 @@ const ChargesIndex = () => {
         if(!response.ok) throw new Error(`Error: ${response.statusText}`)
         const {billings} = await response.json()
         setData(billings.data)
-        setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastPage})
+        setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
     } catch (error) {
       console.log(error)
     }finally{
@@ -104,9 +104,7 @@ const ChargesIndex = () => {
     } catch (error) {
       console.log(error)
     }
-    finally{
-      
-    }
+
   }
 
   const handleSearchToStatus = async event =>{
@@ -121,7 +119,7 @@ const ChargesIndex = () => {
       if(!response.ok) throw new Error(`Error: ${response.statusText}`)
       const {billings} = await response.json()
       setData(billings.data)
-      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastPage:billings.lastPage})
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
     } catch (error) {
       console.log(error)
     }
@@ -131,13 +129,13 @@ const ChargesIndex = () => {
     try {
       const token = window.localStorage.getItem('token')
       if(!token) throw new Error(`Error: Token inválido!`)
-      const search = `&name=${event.target.nameorcnpj.value}`
+      const search = `${event.target.nameorcnpj.value}`
       const {url, options} = GET_BILLINGS(token, paginate, search)
       const response = await fetch(url, options)
       if(!response.ok) throw new Error(`Error: ${response.statusText}`)
       const {billings} = await response.json()
       setData(billings.data)
-      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastPage:billings.lastPage})
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
     } catch (error) {
       console.log(error)
     }
@@ -154,7 +152,7 @@ const ChargesIndex = () => {
       if(!response.ok) throw new Error(`Error: ${response.statusText}`)
       const {billings} = await response.json()
       setData(billings.data)
-      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastPage:billings.lastPage})
+      setPaginate({total:billings.total, perPage:billings.perPage, page:billings.page, lastpage:billings.lastpage})
     }catch(error){
       console.log(error)
     }
@@ -163,12 +161,7 @@ const ChargesIndex = () => {
   const paginateUpdate =async event =>{
     try {
         const token = window.localStorage.getItem('token')
-        
-            console.log(event.target.id)
-        
-        //console.log(event.target.innerText)
         paginate.page=event.target.id
-
         setPaginate(paginate)
         console.log(paginate)
         if(!token){
@@ -323,7 +316,7 @@ const ChargesIndex = () => {
                 </GridCell>
                 </GridRow>
                 <GridRow>
-                  {/*<Pagination paginate={paginate} paginateUpdate={paginateUpdate}/>*/}
+                  <Pagination paginate={paginate} paginateUpdate={paginateUpdate}/>
                 </GridRow>
             </Grid>
             </div>

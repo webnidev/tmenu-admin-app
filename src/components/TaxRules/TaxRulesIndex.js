@@ -47,6 +47,11 @@ const TaxRulesIndex = () => {
     }
   }
 
+  const newTax = async event =>{
+    event.preventDefault();
+    
+  }
+
   React.useEffect(()=>{
     getPlans()
   },[])
@@ -76,7 +81,7 @@ const TaxRulesIndex = () => {
           </Grid>
 
                 { add && 
-                <form>
+                <form onSubmit={newTax}>
                   <div className="formContainer">
               <Grid>    
                 <GridRow>
@@ -88,9 +93,9 @@ const TaxRulesIndex = () => {
                       <GridCell span={3}>
                         <TextField fullwidth placeholder="Valor" name="value" />
                       </GridCell>
-                      
-
-                    
+                      <GridCell>
+                      <Button label="Cadastrar" outlined icon="add" className={"BtnDefaultSearch"} /> 
+                      </GridCell>
                   </GridCell>
                 </GridRow>
                 </Grid>
