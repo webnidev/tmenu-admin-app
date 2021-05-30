@@ -5,7 +5,7 @@ import useForm from '../../Hooks/useForm'
 const Login = () => {
   const email = useForm()
   const password = useForm()
-  const { userLogin, error } = React.useContext(UserContext);
+  const { userLogin, login , error} = React.useContext(UserContext);
   async function handleSubimit(event){  
     event.preventDefault()  
       userLogin({email: event.target.email.value, password:event.target.password.value})
@@ -20,16 +20,16 @@ const Login = () => {
         <Grid>
           <GridRow>
             <GridCell span={12}>
-              <TextField type="email" name="email" fullwidth placeholder="Email" {...email} />
-              {error}
+              <TextField  name="email" type="email" fullwidth placeholder="Email" {...email} />
               </GridCell>
           </GridRow>
           <GridRow>
             <GridCell span={12}>
-              <TextField type="password" name="password" fullwidth placeholder="Password" {...password} />
-              {error}
+              <TextField  name="password" type="password" fullwidth placeholder="Password" {...password} />
+              
               </GridCell>
           </GridRow>
+          {error}
           <GridRow>
             <GridCell span={12}><Button type="submit" className={"BtnDefaultTmenu"} label="Entrar" icon="/login.png" /> </GridCell>
           </GridRow>
