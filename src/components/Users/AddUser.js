@@ -120,10 +120,7 @@ const AddUser =()=>{
                     <GridRow>
                         <GridCell span={6}>
                         <Select label="Tipo de Usuário" name='role' defaultValue="manager">
-                            <option value="manager">Gerente</option>
-                            <option value="client">Cliente</option>
-                            <option value="waiter">Garçom</option>
-                            <option value="admin">Admin</option>
+                            <option value="company_admin">Admin</option>
                             </Select>
                         </GridCell>
                         <GridCell span={6}> 
