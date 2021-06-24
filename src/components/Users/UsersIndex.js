@@ -37,7 +37,7 @@ const UsersIndex = () => {
   const searchUser = async event =>{
     event.preventDefault()
     try {
-      const search = `&name=${event.target.name.value}`
+      const search = `${event.target.name.value}`
       const token = window.localStorage.getItem('token')
       const {url, options} = GET_USERS(token, paginate, search)
       const response = await fetch(url, options)
